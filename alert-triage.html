@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alert Triage — CyberSOC Playbook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/kql.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <!-- Top Bar -->
+    <header class="topbar">
+        <div class="topbar-logo">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="28" height="28" rx="6" stroke="#06b6d4" stroke-width="2"/>
+                <path d="M16 8v16M8 16h16" stroke="#06b6d4" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="16" cy="16" r="4" stroke="#a855f7" stroke-width="2"/>
+                <circle cx="16" cy="16" r="8" stroke="#06b6d4" stroke-width="1" opacity="0.4"/>
+            </svg>
+            <span>Cyber<span class="logo-accent">SOC</span> Playbook</span>
+        </div>
+
+        <div class="topbar-search">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Search playbooks... (Ctrl+K)" aria-label="Search playbooks">
+            <div class="search-results"></div>
+        </div>
+
+        <div class="topbar-actions">
+            <button class="btn-topbar btn-print" aria-label="Print this page" title="Print">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            </button>
+            <button class="btn-topbar btn-menu" aria-label="Toggle menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" aria-label="Main navigation">
+        <div class="sidebar-section-title">Operations Center</div>
+        <ul class="sidebar-nav">
+            <li>
+                <a href="index.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    <span class="nav-label">Dashboard</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-section-title">Playbooks</div>
+        <ul class="sidebar-nav">
+            <li>
+                <a href="threat-intelligence.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+                    <span class="nav-label">Threat Intelligence</span>
+                </a>
+            </li>
+            <li>
+                <a href="protective-monitoring.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span class="nav-label">Protective Monitoring</span>
+                </a>
+            </li>
+            <li>
+                <a href="incident-management.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+                    <span class="nav-label">Incident Management</span>
+                </a>
+            </li>
+            <li>
+                <a href="alert-triage.html" class="active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                    <span class="nav-label">Alert Triage</span>
+                </a>
+            </li>
+            <li>
+                <a href="incident-response.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <span class="nav-label">Incident Response</span>
+                </a>
+            </li>
+            <li>
+                <a href="vulnerability-management.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                    <span class="nav-label">Vulnerability Management</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-toc"><div class="sidebar-section-title">On This Page</div><ul class="sidebar-toc-list"></ul></div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main">
+        <div class="page-header">
+            <h1>
+                <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                Alert Triage Playbook
+            </h1>
+            <p class="page-subtitle">Structured triage workflow for Microsoft Defender for Endpoint alerts. Severity classification, decision trees, investigation queries, enrichment procedures, and closure documentation standards.</p>
+            <div class="page-meta">
+                <span>
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="2" y1="6" x2="14" y2="6"/><line x1="6" y1="2" x2="6" y2="6"/></svg>
+                    Last Updated: 2025-02
+                </span>
+                <span>
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 14s6-3.5 6-8V3.5L8 1.5 2 3.5V6c0 4.5 6 8 6 8z"/></svg>
+                    Microsoft Defender for Endpoint
+                </span>
+                <span>
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><polyline points="8 4 8 8 11 10"/></svg>
+                    7 KQL Queries | 1 Decision Tree | 7 Sections
+                </span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             Section 1: Alert Severity Classification
+             ============================================================ -->
+        <section class="section">
+            <h2 id="severity"><span class="section-number">1</span> Alert Severity Classification</h2>
+            <p>Microsoft Defender for Endpoint assigns severity levels to alerts based on the potential impact and confidence of the detection. The following table defines the SOC triage expectations for each severity tier.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Severity</th>
+                            <th>Description</th>
+                            <th>Triage SLA</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row-critical">
+                            <td><span class="badge badge-red">High</span></td>
+                            <td>Alerts associated with APTs, credential theft, or ransomware</td>
+                            <td><strong>15 min</strong></td>
+                            <td>Immediate investigation</td>
+                        </tr>
+                        <tr class="row-high">
+                            <td><span class="badge badge-amber">Medium</span></td>
+                            <td>EDR-detected suspicious behavior indicating possible compromise</td>
+                            <td><strong>1 hour</strong></td>
+                            <td>Prioritized investigation</td>
+                        </tr>
+                        <tr class="row-medium">
+                            <td><span class="badge badge-blue">Low</span></td>
+                            <td>Prevalent malware or hack tools not indicating APT</td>
+                            <td><strong>4 hours</strong></td>
+                            <td>Scheduled investigation</td>
+                        </tr>
+                        <tr class="row-low">
+                            <td><span class="badge badge-muted">Informational</span></td>
+                            <td>Not considered harmful but may indicate security awareness items</td>
+                            <td><strong>24 hours</strong></td>
+                            <td>Review and classify</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-info">
+                <div class="callout-title">SLA Enforcement</div>
+                <p>Triage SLAs are measured from the time the alert appears in the MDE queue to the time an analyst begins active investigation. Automated investigation results from MDE should be reviewed as part of the initial triage, not as a substitute for it.</p>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 2: MDE Alert Categories
+             ============================================================ -->
+        <section class="section">
+            <h2 id="alert-categories"><span class="section-number">2</span> MDE Alert Categories</h2>
+            <p>MDE alert categories map directly to threat behaviors. The following table provides the mapping between MDE alert categories and MITRE ATT&CK tactics along with associated technique identifiers for reference during triage.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>MDE Alert Category</th>
+                            <th>MITRE ATT&CK Tactic</th>
+                            <th>Key Techniques</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ransomware</strong></td>
+                            <td>Impact</td>
+                            <td><span class="badge badge-red">T1486</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Malware</strong></td>
+                            <td>Execution</td>
+                            <td><span class="badge badge-amber">Multiple</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phishing</strong></td>
+                            <td>Initial Access</td>
+                            <td><span class="badge badge-cyan">T1566</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Credential Access</strong></td>
+                            <td>Credential Access</td>
+                            <td><span class="badge badge-purple">T1003</span> <span class="badge badge-purple">T1558</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Command and Control</strong></td>
+                            <td>Command and Control</td>
+                            <td><span class="badge badge-blue">T1071</span> <span class="badge badge-blue">T1095</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lateral Movement</strong></td>
+                            <td>Lateral Movement</td>
+                            <td><span class="badge badge-amber">T1021</span> <span class="badge badge-amber">T1570</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Persistence</strong></td>
+                            <td>Persistence</td>
+                            <td><span class="badge badge-cyan">T1547</span> <span class="badge badge-cyan">T1053</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Defense Evasion</strong></td>
+                            <td>Defense Evasion</td>
+                            <td><span class="badge badge-purple">T1055</span> <span class="badge badge-purple">T1036</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Exfiltration</strong></td>
+                            <td>Exfiltration</td>
+                            <td><span class="badge badge-red">T1041</span> <span class="badge badge-red">T1567</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Discovery</strong></td>
+                            <td>Discovery</td>
+                            <td><span class="badge badge-blue">T1087</span> <span class="badge badge-blue">T1082</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Privilege Escalation</strong></td>
+                            <td>Privilege Escalation</td>
+                            <td><span class="badge badge-amber">T1068</span> <span class="badge badge-amber">T1134</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Execution</strong></td>
+                            <td>Execution</td>
+                            <td><span class="badge badge-cyan">T1059</span> <span class="badge badge-cyan">T1204</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Suspicious Activity</strong></td>
+                            <td>Various</td>
+                            <td><span class="badge badge-muted">Multiple</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Unwanted Software</strong></td>
+                            <td>Impact</td>
+                            <td><span class="badge badge-muted">Various</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 3: Triage Decision Tree
+             ============================================================ -->
+        <section class="section">
+            <h2 id="decision-tree"><span class="section-number">3</span> Triage Decision Tree</h2>
+            <p>Follow this structured decision tree for every incoming MDE alert. Each step ensures consistent triage outcomes across the analyst team.</p>
+
+            <ul class="decision-tree">
+                <li>
+                    <div class="dt-node dt-question">ALERT RECEIVED &mdash; Begin Triage Workflow</div>
+                    <ul>
+                        <li>
+                            <div class="dt-node dt-question">Step 1: Is the alert a duplicate or known false positive?</div>
+                            <ul>
+                                <li>
+                                    <div class="dt-node dt-yes dt-action">Close as Duplicate/Known FP. Document the reason in the alert closure notes.</div>
+                                </li>
+                                <li>
+                                    <div class="dt-node dt-no">Continue to Step 2</div>
+                                    <ul>
+                                        <li>
+                                            <div class="dt-node dt-question">Step 2: Check alert context in MDE (Review device timeline, alert story, automated investigation results)</div>
+                                            <ul>
+                                                <li>
+                                                    <div class="dt-node dt-question">Step 3: Is the activity from a sanctioned tool/process?</div>
+                                                    <ul>
+                                                        <li>
+                                                            <div class="dt-node dt-yes">Verify with asset inventory/CMDB</div>
+                                                            <ul>
+                                                                <li>
+                                                                    <div class="dt-node dt-yes dt-action">Confirmed sanctioned: Close as Benign True Positive (BTP). Consider adding a suppression rule.</div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="dt-node dt-no dt-escalate">Not in inventory: Escalate for review by senior analyst or tool owner.</div>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <div class="dt-node dt-no">Continue to Step 4</div>
+                                                            <ul>
+                                                                <li>
+                                                                    <div class="dt-node dt-question">Step 4: Does the alert correlate with known threat intelligence?</div>
+                                                                    <ul>
+                                                                        <li>
+                                                                            <div class="dt-node dt-yes dt-escalate">Escalate as True Positive. Create Incident and assign to IR team.</div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="dt-node dt-no">Continue to Step 5</div>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <div class="dt-node dt-question">Step 5: Run enrichment queries (see <a href="#enrichment">Section 6: Enrichment Workflows</a>)</div>
+                                                                                    <ul>
+                                                                                        <li>
+                                                                                            <div class="dt-node dt-question">Step 6: Based on enrichment results, classify the alert:</div>
+                                                                                            <ul>
+                                                                                                <li>
+                                                                                                    <div class="dt-node dt-action"><strong>True Positive (TP):</strong> Create incident, assign severity, begin incident response procedures.</div>
+                                                                                                </li>
+                                                                                                <li>
+                                                                                                    <div class="dt-node dt-action"><strong>False Positive (FP):</strong> Close alert, document rationale, consider detection tuning.</div>
+                                                                                                </li>
+                                                                                                <li>
+                                                                                                    <div class="dt-node dt-action"><strong>Benign True Positive (BTP):</strong> Close alert, document expected behavior, consider suppression rule.</div>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <!-- ============================================================
+             Section 4: Initial Investigation KQL Queries
+             ============================================================ -->
+        <section class="section">
+            <h2 id="investigation-queries"><span class="section-number">4</span> Initial Investigation KQL Queries</h2>
+            <p>The following KQL queries support the triage workflow. Run these in Microsoft 365 Defender Advanced Hunting to gather context around an alert entity.</p>
+
+            <!-- Query 1: Device Timeline Around Alert -->
+            <h3 id="kql-at-timeline">Device Timeline Around Alert</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Device Timeline Around Alert</span>
+                        <span class="badge badge-cyan">DeviceProcessEvents</span>
+                        <span class="badge badge-green">Triage</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Retrieves all process events within a configurable time window around the alert timestamp on the target device. Provides immediate context for what was executing before, during, and after the alert fired.</p>
+                </div>
+<pre><code class="language-kql">let alertTime = datetime(2024-01-15T10:30:00Z);
+let deviceName = "WORKSTATION-01";
+let timeWindow = 30m;
+DeviceProcessEvents
+| where Timestamp between ((alertTime - timeWindow) .. (alertTime + timeWindow))
+| where DeviceName == deviceName
+| project Timestamp, FileName, ProcessCommandLine, InitiatingProcessFileName, AccountName
+| sort by Timestamp asc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Returns all process events within &plusmn;30 minutes of the alert. Columns include timestamp, file name, command line, parent process, and the user account that launched the process.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>First step in any alert investigation. Establishes the timeline of activity surrounding the alert event to identify related suspicious processes.</p>
+                </div>
+            </div>
+
+            <!-- Query 2: Alert Process Tree Analysis -->
+            <h3 id="kql-at-process-tree">Alert Process Tree Analysis</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Alert Process Tree Analysis</span>
+                        <span class="badge badge-cyan">AlertEvidence</span>
+                        <span class="badge badge-purple">Process Chain</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Joins alert evidence with device process events to reconstruct the full process execution chain associated with the alert. Reveals parent-child relationships and command line arguments.</p>
+                </div>
+<pre><code class="language-kql">AlertEvidence
+| where AlertId == "your-alert-id"
+| where EntityType == "Process"
+| project DeviceId, FileName, ProcessCommandLine, ParentProcessName = InitiatingProcessFileName
+| join kind=leftouter (
+    DeviceProcessEvents
+    | project DeviceId, FileName, ProcessCommandLine, SHA256,
+             ParentProcess = InitiatingProcessFileName, ParentCommandLine = InitiatingProcessCommandLine
+) on DeviceId, FileName
+| project-away DeviceId1, FileName1</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Process execution chain from alert evidence, including file names, command lines, SHA256 hashes, and parent process details for each process in the chain.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Understanding the attack chain. Use this query when you need to trace how a suspicious process was launched and what it spawned.</p>
+                </div>
+            </div>
+
+            <!-- Query 3: Lateral Movement Check -->
+            <h3 id="kql-at-lateral">Lateral Movement Check for Alert Entity</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Lateral Movement Check for Alert Entity</span>
+                        <span class="badge badge-cyan">DeviceLogonEvents</span>
+                        <span class="badge badge-red">Lateral Movement</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Identifies all devices a suspected compromised account has authenticated to within the last 24 hours. Summarizes logon types and device spread by hourly buckets to surface lateral movement patterns.</p>
+                </div>
+<pre><code class="language-kql">let suspiciousAccount = "compromised_user";
+let timeRange = 24h;
+DeviceLogonEvents
+| where Timestamp > ago(timeRange)
+| where AccountName == suspiciousAccount
+| where LogonType in ("RemoteInteractive", "Network", "Batch")
+| summarize LogonCount = count(),
+            Devices = make_set(DeviceName),
+            LogonTypes = make_set(LogonType)
+    by AccountName, bin(Timestamp, 1h)
+| sort by Timestamp desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Shows all devices the account authenticated to, grouped by hour. Includes logon count, distinct device names, and logon types used in each time bucket.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>When account compromise is suspected. Run this query to determine the blast radius of a potentially compromised identity and identify lateral movement across the environment.</p>
+                </div>
+            </div>
+
+            <!-- Query 4: File Hash Prevalence -->
+            <h3 id="kql-at-prevalence">File Hash Prevalence Check</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">File Hash Prevalence Check</span>
+                        <span class="badge badge-cyan">DeviceFileEvents</span>
+                        <span class="badge badge-amber">Prevalence</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Checks how many devices in the environment have seen a specific file hash. Low prevalence files are more likely to be targeted or malicious, while high prevalence suggests a legitimate application.</p>
+                </div>
+<pre><code class="language-kql">let targetHash = "abc123...";
+DeviceFileEvents
+| where SHA256 == targetHash
+| summarize DeviceCount = dcount(DeviceName),
+            Devices = make_set(DeviceName),
+            FirstSeen = min(Timestamp),
+            LastSeen = max(Timestamp)
+| extend PrevalenceAssessment = iff(DeviceCount < 3, "Rare - Investigate",
+                                iff(DeviceCount < 10, "Uncommon - Review", "Common - Likely Legitimate"))</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>How many devices have the file, a list of those device names, first and last seen timestamps, and a prevalence assessment label (Rare, Uncommon, or Common).</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Determining if a file is targeted or widespread. A file present on only 1-2 devices is far more suspicious than one present on hundreds.</p>
+                </div>
+            </div>
+
+            <!-- Query 5: Network IOC Fleet-Wide Check -->
+            <h3 id="kql-at-network-ioc">Network IOC Fleet-Wide Check</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Network IOC Fleet-Wide Check</span>
+                        <span class="badge badge-cyan">DeviceNetworkEvents</span>
+                        <span class="badge badge-red">IOC Sweep</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Searches the entire fleet for connections to a suspicious IP address or domain over the last 7 days. Used to scope the breadth of impact when a network-based indicator of compromise is identified.</p>
+                </div>
+<pre><code class="language-kql">let suspiciousIP = "203.0.113.50";
+let suspiciousDomain = "malicious-domain.com";
+DeviceNetworkEvents
+| where Timestamp > ago(7d)
+| where RemoteIP == suspiciousIP or RemoteUrl has suspiciousDomain
+| summarize ConnectionCount = count(),
+            Devices = make_set(DeviceName),
+            Ports = make_set(RemotePort),
+            FirstConnection = min(Timestamp),
+            LastConnection = max(Timestamp)
+    by RemoteIP, RemoteUrl
+| sort by ConnectionCount desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>All devices connecting to the suspicious IP or domain, including connection count, distinct devices, ports used, and the time window of communication.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Scoping impact of network-based IOCs. Run this when a C2 domain or malicious IP is identified to determine how many endpoints have been communicating with the threat infrastructure.</p>
+                </div>
+            </div>
+
+            <!-- Query 6: Parent Process Chain Analysis -->
+            <h3 id="kql-at-parent-chain">Parent Process Chain Analysis</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Parent Process Chain Analysis</span>
+                        <span class="badge badge-cyan">DeviceProcessEvents</span>
+                        <span class="badge badge-purple">Process Genealogy</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Traces the full parent-child-grandparent process chain for a suspicious process on a specific device. Reveals the execution origin, which is critical for determining whether the process was launched via a legitimate mechanism or through an exploit chain.</p>
+                </div>
+<pre><code class="language-kql">let targetDevice = "WORKSTATION-01";
+let targetProcess = "suspicious.exe";
+DeviceProcessEvents
+| where DeviceName == targetDevice
+| where FileName == targetProcess or InitiatingProcessFileName == targetProcess
+| project Timestamp, FileName, ProcessCommandLine,
+         Parent = InitiatingProcessFileName,
+         ParentCmd = InitiatingProcessCommandLine,
+         GrandParent = InitiatingProcessParentFileName
+| sort by Timestamp asc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Full parent-child process chain including timestamps, file names, command lines for the process, its parent, and its grandparent process.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Understanding how the suspicious process was launched. For example, if <code>powershell.exe</code> was spawned by <code>winword.exe</code>, that strongly suggests a malicious document execution chain.</p>
+                </div>
+            </div>
+
+            <!-- Query 7: Prior Alerts for Entity -->
+            <h3 id="kql-at-prior-alerts">Prior Alerts for Entity</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Prior Alerts for Entity</span>
+                        <span class="badge badge-cyan">AlertInfo</span>
+                        <span class="badge badge-amber">History</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Queries the last 30 days of alert history for a specific entity (device, user, or file). Identifies repeat offenders and can reveal ongoing campaigns or persistent threats targeting the same assets.</p>
+                </div>
+<pre><code class="language-kql">let entityName = "WORKSTATION-01";
+AlertInfo
+| where Timestamp > ago(30d)
+| join kind=inner (
+    AlertEvidence
+    | where EntityType in ("Machine", "User", "File")
+    | where DeviceName == entityName or AccountName == entityName or FileName == entityName
+) on AlertId
+| summarize AlertCount = count(),
+            AlertTitles = make_set(Title),
+            Severities = make_set(Severity),
+            Categories = make_set(Category)
+    by DeviceName, AccountName
+| sort by AlertCount desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Shows the alert history for the entity over the past 30 days, including total alert count, distinct alert titles, severity levels, and categories grouped by device and account.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Identifying repeat offenders or ongoing campaigns. A device with multiple high-severity alerts over a short period likely indicates an active compromise rather than isolated events.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 5: Evidence Collection Procedures
+             ============================================================ -->
+        <section class="section">
+            <h2 id="evidence-collection"><span class="section-number">5</span> Evidence Collection Procedures</h2>
+            <p>When an alert is confirmed as a True Positive or requires further investigation, the following evidence must be collected and preserved before any containment actions are taken.</p>
+
+            <div class="collapsible expanded">
+                <div class="collapsible-header">
+                    <svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span class="collapsible-title">Evidence Collection Checklist</span>
+                    <span class="collapsible-badge"><span class="badge badge-amber">Required</span></span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="collapsible-body">
+                        <div class="checklist-section" data-checklist-id="evidence-collection">
+                            <div class="checklist-progress">
+                                <div class="checklist-progress-bar">
+                                    <div class="checklist-progress-fill" style="width: 0%"></div>
+                                </div>
+                                <span class="checklist-progress-text">0 / 8</span>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="ec-1">
+                                <label for="ec-1">Screenshot alert details from MDE portal</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="ec-2">
+                                <label for="ec-2">Export device timeline (CSV) for relevant time window</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="ec-3">
+                                <label for="ec-3">Record process tree from alert story</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="ec-4">
+                                <label for="ec-4">Document network connections from device timeline</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="ec-5">
+                                <label for="ec-5">Collect file hashes (SHA1, SHA256, MD5) for relevant files</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="ec-6">
+                                <label for="ec-6">Initiate "Collect Investigation Package" via MDE if needed</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="ec-7">
+                                <label for="ec-7">Save enrichment results (VirusTotal, WHOIS, etc.)</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="ec-8">
+                                <label for="ec-8">Document analyst observations and initial hypothesis</label>
+                            </div>
+                            <button class="btn-reset-checklist" data-checklist-id="evidence-collection">
+                                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                                Reset Checklist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout callout-info">
+                <div class="callout-title">Evidence Naming Convention</div>
+                <p>All collected artifacts must follow the standard naming format: <code>[IncidentID]_[DeviceName]_[ArtifactType]_[YYYYMMDD_HHMMSS]</code></p>
+                <p>Examples: <code>INC-2024-0142_WKS01_Timeline_20240115_103000</code> or <code>INC-2024-0142_WKS01_InvestigationPackage_20240115_110000</code></p>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 6: Enrichment Workflows
+             ============================================================ -->
+        <section class="section">
+            <h2 id="enrichment"><span class="section-number">6</span> Enrichment Workflows</h2>
+            <p>Enrichment adds external and internal context to alert entities (files, IPs, domains, users). Follow this procedure for every alert that progresses past Step 4 in the <a href="#decision-tree">Triage Decision Tree</a>.</p>
+
+            <h3 id="enrichment-procedure">Enrichment Procedure Steps</h3>
+            <ol class="procedure-steps">
+                <li>Check file hash on VirusTotal (manual upload or API query). Record detection ratio, first seen date, and any sandbox behavioral reports.</li>
+                <li>Check domain/IP reputation on VirusTotal, AbuseIPDB, and Shodan. Record abuse confidence score, geolocation, ASN, and any associated malware campaigns.</li>
+                <li>Perform WHOIS lookup for suspicious domains. Note registration date, registrar, nameservers, and registrant information. Recently registered domains (&lt;30 days) are high risk.</li>
+                <li>Query internal threat intelligence database/platform. Cross-reference IOCs with any active threat hunts, previous incidents, or known adversary infrastructure tracked by the team.</li>
+                <li>Check Microsoft Threat Intelligence for the entity. Review the MDE file profile, URL reputation, and any associated global alert prevalence data within the Microsoft ecosystem.</li>
+                <li>Verify device compliance status in MDE. Check whether the affected device has missing patches, disabled security features, or policy violations that may have contributed to the alert.</li>
+                <li>Check user risk score in Azure AD Identity Protection. Review sign-in risk events, impossible travel detections, and any existing risk flags on the user account associated with the alert.</li>
+            </ol>
+
+            <h3 id="enrichment-matrix">Enrichment Decision Matrix</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Entity Type</th>
+                            <th>Primary Source</th>
+                            <th>Secondary Sources</th>
+                            <th>Key Data Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>File Hash</strong></td>
+                            <td>VirusTotal</td>
+                            <td>MDE File Profile, Any.Run</td>
+                            <td>Detection ratio, first/last seen, sandbox behavior</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IP Address</strong></td>
+                            <td>AbuseIPDB</td>
+                            <td>VirusTotal, Shodan, GreyNoise</td>
+                            <td>Abuse confidence, geolocation, open ports, ISP</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Domain</strong></td>
+                            <td>VirusTotal</td>
+                            <td>WHOIS, URLhaus, MDE TI</td>
+                            <td>Registration date, registrar, DNS history, reputation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>URL</strong></td>
+                            <td>VirusTotal</td>
+                            <td>URLhaus, Google Safe Browsing</td>
+                            <td>Redirection chain, hosted content, blocklist status</td>
+                        </tr>
+                        <tr>
+                            <td><strong>User Account</strong></td>
+                            <td>Azure AD</td>
+                            <td>MDE User Profile, UEBA</td>
+                            <td>Risk level, recent activity, sign-in anomalies</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 7: Alert Closure Documentation
+             ============================================================ -->
+        <section class="section">
+            <h2 id="closure"><span class="section-number">7</span> Alert Closure Documentation</h2>
+            <p>Every alert must be closed with proper documentation to maintain audit trails, enable metrics reporting, and support detection tuning. The following fields are required or recommended for each alert closure.</p>
+
+            <h3 id="closure-fields">Required Closure Fields</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Required</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Classification</strong></td>
+                            <td><span class="badge badge-red">Yes</span></td>
+                            <td>TP (True Positive), FP (False Positive), or BTP (Benign True Positive)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Determination</strong></td>
+                            <td><span class="badge badge-red">Yes</span></td>
+                            <td>Malware, SecurityTesting, LineOfBusinessApplication, UnwantedSoftware, or Other</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Analyst Notes</strong></td>
+                            <td><span class="badge badge-red">Yes</span></td>
+                            <td>Minimum 2 sentences explaining the classification rationale, including key evidence reviewed and conclusions drawn</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Actions Taken</strong></td>
+                            <td><span class="badge badge-red">Yes</span></td>
+                            <td>List of all response actions performed (e.g., isolated device, blocked hash, disabled account, no action required)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tuning Action</strong></td>
+                            <td><span class="badge badge-amber">If FP</span></td>
+                            <td>Recommended detection tuning or suppression rule to prevent recurrence of the false positive</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Linked Incident</strong></td>
+                            <td><span class="badge badge-amber">If TP</span></td>
+                            <td>Incident ID for the created incident. All TP alerts must be associated with an incident for tracking and reporting</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Enrichment Summary</strong></td>
+                            <td><span class="badge badge-blue">Recommended</span></td>
+                            <td>Key findings from enrichment sources (VirusTotal scores, reputation data, TI matches) that supported the classification</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Time Spent</strong></td>
+                            <td><span class="badge badge-blue">Recommended</span></td>
+                            <td>Minutes spent on triage for workload metrics and SLA reporting. Helps identify detection rules that consume disproportionate analyst time</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-warning">
+                <div class="callout-title">Quality Review</div>
+                <p>All P1/P2 alert closures must be reviewed by a senior analyst within 24 hours. FP classifications exceeding 5 per week for the same detection rule trigger an automatic tuning review.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/kql-highlight.js" defer></script>
+    <script src="js/kql-clipboard.js" defer></script>
+    <script src="js/collapsible.js" defer></script>
+    <script src="js/checklist.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/search.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident Response — CyberSOC Playbook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/kql.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <!-- Top Bar -->
+    <header class="topbar">
+        <div class="topbar-logo">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="28" height="28" rx="6" stroke="#06b6d4" stroke-width="2"/>
+                <path d="M16 8v16M8 16h16" stroke="#06b6d4" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="16" cy="16" r="4" stroke="#a855f7" stroke-width="2"/>
+                <circle cx="16" cy="16" r="8" stroke="#06b6d4" stroke-width="1" opacity="0.4"/>
+            </svg>
+            <span>Cyber<span class="logo-accent">SOC</span> Playbook</span>
+        </div>
+
+        <div class="topbar-search">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Search playbooks... (Ctrl+K)" aria-label="Search playbooks">
+            <div class="search-results"></div>
+        </div>
+
+        <div class="topbar-actions">
+            <button class="btn-topbar btn-print" aria-label="Print this page" title="Print">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            </button>
+            <button class="btn-topbar btn-menu" aria-label="Toggle menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" aria-label="Main navigation">
+        <div class="sidebar-section-title">Operations Center</div>
+        <ul class="sidebar-nav">
+            <li>
+                <a href="index.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    <span class="nav-label">Dashboard</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-section-title">Playbooks</div>
+        <ul class="sidebar-nav">
+            <li>
+                <a href="threat-intelligence.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+                    <span class="nav-label">Threat Intelligence</span>
+                </a>
+            </li>
+            <li>
+                <a href="protective-monitoring.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span class="nav-label">Protective Monitoring</span>
+                </a>
+            </li>
+            <li>
+                <a href="incident-management.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+                    <span class="nav-label">Incident Management</span>
+                </a>
+            </li>
+            <li>
+                <a href="alert-triage.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                    <span class="nav-label">Alert Triage</span>
+                </a>
+            </li>
+            <li>
+                <a href="incident-response.html" class="active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <span class="nav-label">Incident Response</span>
+                </a>
+            </li>
+            <li>
+                <a href="vulnerability-management.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                    <span class="nav-label">Vulnerability Management</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-toc"><div class="sidebar-section-title">On This Page</div><ul class="sidebar-toc-list"></ul></div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main">
+        <div class="page-header">
+            <h1>
+                <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                Incident Response
+            </h1>
+            <p class="page-subtitle">Full IR lifecycle aligned with NIST SP 800-61r3. MDE response actions, Live Response commands, scenario-based KQL queries, containment strategies, and forensic procedures.</p>
+            <div class="page-meta">
+                <span>
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 14s6-3.5 6-8V3.5L8 1.5 2 3.5V6c0 4.5 6 8 6 8z"/></svg>
+                    NIST SP 800-61r3 Aligned
+                </span>
+                <span>
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="4 11 8 7 4 3"/><line x1="8" y1="13" x2="14" y2="13"/></svg>
+                    23 KQL Queries
+                </span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             Section 1: IR Lifecycle Overview
+             ============================================================ -->
+        <section class="section">
+            <h2 id="ir-lifecycle"><span class="section-number">1</span> IR Lifecycle Overview</h2>
+            <p>The incident response process follows the NIST SP 800-61r3 framework, adapted for Microsoft Defender for Endpoint operations. Each phase builds upon the previous one to ensure systematic and thorough incident handling.</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-title">1. Preparation</div>
+                    <div class="timeline-description">Establish IR capabilities before incidents occur. Ensure tooling, access, communication channels, and documentation are ready. Validate MDE configurations, Live Response permissions, and API integrations.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">2. Detection &amp; Analysis</div>
+                    <div class="timeline-description">Identify potential security incidents through MDE alerts, Advanced Hunting queries, and external intelligence. Determine scope, severity, and impact. Correlate indicators across the fleet to build a complete picture.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">3. Containment</div>
+                    <div class="timeline-description">Limit the blast radius of confirmed incidents. Use MDE device isolation, app restriction, and account disabling to prevent further spread. Balance containment speed with evidence preservation.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">4. Eradication</div>
+                    <div class="timeline-description">Remove the threat from all affected systems. Eliminate malware, persistence mechanisms, compromised credentials, and attacker footholds. Validate removal through Advanced Hunting queries and AV scans.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">5. Recovery</div>
+                    <div class="timeline-description">Restore affected systems to normal operation. Release device isolation, remove app restrictions, re-enable accounts, and validate business function. Monitor closely for recurrence during the recovery window.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">6. Lessons Learned</div>
+                    <div class="timeline-description">Conduct post-incident review within 5 business days. Document root cause, timeline, actions taken, and improvement recommendations. Update playbooks, detection rules, and response procedures based on findings.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 2: Preparation
+             ============================================================ -->
+        <section class="section">
+            <h2 id="preparation"><span class="section-number">2</span> Preparation</h2>
+            <p>Complete this preparation checklist before any incident occurs to ensure your team can respond effectively. Review quarterly and after every major incident.</p>
+
+            <div class="checklist-section" data-checklist-id="ir-prep">
+                <div class="checklist-item">
+                    <input type="checkbox" id="ir-prep-0">
+                    <label for="ir-prep-0">MDE portal access verified for all IR team members</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="ir-prep-1">
+                    <label for="ir-prep-1">Live Response enabled and permissions configured</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="ir-prep-2">
+                    <label for="ir-prep-2">Investigation package collection tested</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="ir-prep-3">
+                    <label for="ir-prep-3">API access tokens current and functional</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="ir-prep-4">
+                    <label for="ir-prep-4">Communication channels established (Teams war room, bridge line)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="ir-prep-5">
+                    <label for="ir-prep-5">Evidence storage location prepared (isolated file share)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="ir-prep-6">
+                    <label for="ir-prep-6">Forensic workstation ready</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="ir-prep-7">
+                    <label for="ir-prep-7">IR playbook reviewed and up-to-date</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="ir-prep-8">
+                    <label for="ir-prep-8">External IR retainer contact info verified</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="ir-prep-9">
+                    <label for="ir-prep-9">Backup communication plan in place</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 3: Detection & Analysis
+             ============================================================ -->
+        <section class="section">
+            <h2 id="detection-analysis"><span class="section-number">3</span> Detection &amp; Analysis</h2>
+            <p>Use these KQL queries during the initial detection and scoping phase to identify all affected assets, correlate alerts, and understand attacker activity across your environment.</p>
+
+            <h3 id="kql-ir-incident-alerts">All Alerts for Incident</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">All Alerts for Incident</span>
+                        <span class="badge badge-cyan">Scoping</span>
+                    </div>
+                </div>
+                <div class="kql-description">
+                    <p>Retrieve all alerts matching a specific search term or MITRE ATT&amp;CK technique. Summarizes affected devices, users, and techniques per alert for rapid incident scoping.</p>
+                </div>
+                <pre><code class="language-kql">AlertInfo
+| where Timestamp > ago(30d)
+| join kind=inner AlertEvidence on AlertId
+| where Title has "your-search-term" or AttackTechniques has "T1059"
+| summarize AlertCount = count(), Devices = make_set(DeviceName),
+            Users = make_set(AccountName), Techniques = make_set(AttackTechniques)
+    by AlertId, Title, Severity, Category
+| sort by Severity asc, AlertCount desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Table of alerts with associated device names, user accounts, and ATT&amp;CK techniques, sorted by severity for prioritization.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>At the start of any incident to enumerate all related alerts and quickly determine the scope of affected assets.</p>
+                </div>
+            </div>
+
+            <h3 id="kql-ir-affected-devices">Identify All Affected Devices</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Identify All Affected Devices</span>
+                        <span class="badge badge-cyan">Scoping</span>
+                    </div>
+                </div>
+                <div class="kql-description">
+                    <p>Given known alert IDs from an incident, identify all unique devices involved and enrich with device metadata including OS version, machine group, and public IP.</p>
+                </div>
+                <pre><code class="language-kql">let incidentAlerts = AlertEvidence
+    | where Timestamp > ago(7d)
+    | where AlertId in ("alert-id-1", "alert-id-2")
+    | distinct DeviceName, DeviceId;
+incidentAlerts
+| join kind=leftouter (
+    DeviceInfo
+    | where Timestamp > ago(1d)
+    | summarize arg_max(Timestamp, *) by DeviceId
+) on DeviceId
+| project DeviceName, DeviceId, OSPlatform, OSVersion,
+         MachineGroup, PublicIP, LoggedOnUsers</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Enriched device list with OS details, network group, and currently logged-on users for each affected endpoint.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>After identifying incident alerts, use this to build a complete device inventory for containment planning.</p>
+                </div>
+            </div>
+
+            <h3 id="kql-ir-user-activity">Compromised Account Activity Across Fleet</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Compromised Account Activity Across Fleet</span>
+                        <span class="badge badge-amber">Investigation</span>
+                    </div>
+                </div>
+                <div class="kql-description">
+                    <p>Track a known compromised user account across all devices in the fleet. Shows logon patterns, device spread, and logon types over time to identify lateral movement.</p>
+                </div>
+                <pre><code class="language-kql">let compromisedUser = "target_username";
+DeviceLogonEvents
+| where Timestamp > ago(7d)
+| where AccountName == compromisedUser
+| summarize LogonCount = count(),
+            Devices = make_set(DeviceName),
+            LogonTypes = make_set(LogonType),
+            FirstSeen = min(Timestamp),
+            LastSeen = max(Timestamp)
+    by AccountDomain, AccountName, bin(Timestamp, 1h)
+| sort by Timestamp desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Hourly breakdown of the compromised account's logon activity across the fleet, showing which devices were accessed and what logon methods were used.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>When a user account is confirmed or suspected to be compromised, use this to map the full extent of the attacker's access.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 4: MDE Response Actions
+             ============================================================ -->
+        <section class="section">
+            <h2 id="response-actions"><span class="section-number">4</span> MDE Response Actions</h2>
+            <p>Microsoft Defender for Endpoint provides a comprehensive set of response actions that can be executed through the portal or via the API. Understand the impact level of each action before execution.</p>
+
+            <div class="callout callout-danger">
+                <div class="callout-title">Warning</div>
+                <p>Device isolation and app restriction are high-impact actions. Ensure proper authorization before executing. Always document the justification and get SOC Manager approval for P2+ incidents.</p>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>How to Execute</th>
+                            <th>API Endpoint</th>
+                            <th>Impact Level</th>
+                            <th>When to Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row-critical">
+                            <td><strong>Isolate Device</strong></td>
+                            <td>Device page &rarr; Response actions &rarr; Isolate device</td>
+                            <td><code>POST /api/machines/{id}/isolate</code></td>
+                            <td><span class="badge badge-red">HIGH</span> Cuts all network except MDE</td>
+                            <td>Confirmed compromise, active C2</td>
+                        </tr>
+                        <tr class="row-medium">
+                            <td><strong>Release from Isolation</strong></td>
+                            <td>Device page &rarr; Response actions &rarr; Release from isolation</td>
+                            <td><code>POST /api/machines/{id}/unisolate</code></td>
+                            <td><span class="badge badge-amber">MEDIUM</span></td>
+                            <td>After containment verified</td>
+                        </tr>
+                        <tr class="row-critical">
+                            <td><strong>Restrict App Execution</strong></td>
+                            <td>Device page &rarr; Response actions &rarr; Restrict app execution</td>
+                            <td><code>POST /api/machines/{id}/restrictCodeExecution</code></td>
+                            <td><span class="badge badge-red">HIGH</span> Only MS-signed can run</td>
+                            <td>Active malware execution</td>
+                        </tr>
+                        <tr class="row-medium">
+                            <td><strong>Remove App Restriction</strong></td>
+                            <td>Device page &rarr; Response actions &rarr; Remove app restriction</td>
+                            <td><code>POST /api/machines/{id}/unrestrictCodeExecution</code></td>
+                            <td><span class="badge badge-amber">MEDIUM</span></td>
+                            <td>After eradication</td>
+                        </tr>
+                        <tr class="row-low">
+                            <td><strong>Run AV Scan (Quick)</strong></td>
+                            <td>Device page &rarr; Response actions &rarr; Run antivirus scan</td>
+                            <td><code>POST /api/machines/{id}/runAntiVirusScan</code> (Quick)</td>
+                            <td><span class="badge badge-muted">LOW</span></td>
+                            <td>Initial response</td>
+                        </tr>
+                        <tr class="row-medium">
+                            <td><strong>Run AV Scan (Full)</strong></td>
+                            <td>Device page &rarr; Response actions &rarr; Run antivirus scan</td>
+                            <td><code>POST /api/machines/{id}/runAntiVirusScan</code> (Full)</td>
+                            <td><span class="badge badge-amber">MEDIUM</span></td>
+                            <td>Post-eradication validation</td>
+                        </tr>
+                        <tr class="row-low">
+                            <td><strong>Collect Investigation Package</strong></td>
+                            <td>Device page &rarr; Response actions &rarr; Collect investigation package</td>
+                            <td><code>POST /api/machines/{id}/collectInvestigationPackage</code></td>
+                            <td><span class="badge badge-muted">LOW</span></td>
+                            <td>Evidence collection</td>
+                        </tr>
+                        <tr class="row-critical">
+                            <td><strong>Stop and Quarantine File</strong></td>
+                            <td>File page &rarr; Response actions &rarr; Stop and quarantine</td>
+                            <td><code>POST /api/files/{sha1}/StopAndQuarantineFile</code></td>
+                            <td><span class="badge badge-red">HIGH</span> Removes file fleet-wide</td>
+                            <td>Confirmed malicious file</td>
+                        </tr>
+                        <tr class="row-medium">
+                            <td><strong>Initiate Live Response</strong></td>
+                            <td>Device page &rarr; Response actions &rarr; Initiate live response session</td>
+                            <td>Portal-based + API</td>
+                            <td><span class="badge badge-purple">VARIES</span></td>
+                            <td>Forensic investigation</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 5: Live Response Commands
+             ============================================================ -->
+        <section class="section">
+            <h2 id="live-response"><span class="section-number">5</span> Live Response Commands</h2>
+            <p>Live Response provides a remote shell to affected endpoints for forensic investigation and remediation. Commands are split into basic (available to all Live Response users) and advanced (requires elevated permissions).</p>
+
+            <div class="tab-group">
+                <div class="tab-nav">
+                    <button class="tab-btn active" data-tab="live-response-basic">Basic Commands</button>
+                    <button class="tab-btn" data-tab="live-response-advanced">Advanced Commands</button>
+                </div>
+
+                <div class="tab-panel active" id="live-response-basic">
+                    <h3 id="live-response-basic-heading">Basic Commands</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Command</th>
+                                    <th>Syntax</th>
+                                    <th>Use Case</th>
+                                    <th>Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>dir</code></td>
+                                    <td><code>dir C:\path</code></td>
+                                    <td>List directory contents</td>
+                                    <td><code>dir C:\Users\Public\Downloads</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>findfile</code></td>
+                                    <td><code>findfile &lt;filename&gt;</code></td>
+                                    <td>Locate files by name</td>
+                                    <td><code>findfile mimikatz.exe</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>getfile</code></td>
+                                    <td><code>getfile &lt;filepath&gt;</code></td>
+                                    <td>Download file for analysis</td>
+                                    <td><code>getfile C:\Windows\Temp\payload.exe</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>processes</code></td>
+                                    <td><code>processes</code></td>
+                                    <td>List running processes</td>
+                                    <td>Identify suspicious processes</td>
+                                </tr>
+                                <tr>
+                                    <td><code>connections</code></td>
+                                    <td><code>connections</code></td>
+                                    <td>Show active network connections</td>
+                                    <td>Identify C2 connections</td>
+                                </tr>
+                                <tr>
+                                    <td><code>persistence</code></td>
+                                    <td><code>persistence</code></td>
+                                    <td>Show persistence mechanisms</td>
+                                    <td>Check for attacker footholds</td>
+                                </tr>
+                                <tr>
+                                    <td><code>registry</code></td>
+                                    <td><code>registry &lt;key&gt;</code></td>
+                                    <td>Read registry values</td>
+                                    <td><code>registry HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>scheduledtasks</code></td>
+                                    <td><code>scheduledtasks</code></td>
+                                    <td>List all scheduled tasks</td>
+                                    <td>Identify malicious tasks</td>
+                                </tr>
+                                <tr>
+                                    <td><code>services</code></td>
+                                    <td><code>services</code></td>
+                                    <td>List all services</td>
+                                    <td>Identify rogue services</td>
+                                </tr>
+                                <tr>
+                                    <td><code>fileinfo</code></td>
+                                    <td><code>fileinfo &lt;filepath&gt;</code></td>
+                                    <td>Get file metadata and hash</td>
+                                    <td><code>fileinfo C:\Windows\System32\svchost.exe</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>startupfolders</code></td>
+                                    <td><code>startupfolders</code></td>
+                                    <td>Show startup folder contents</td>
+                                    <td>Check persistence</td>
+                                </tr>
+                                <tr>
+                                    <td><code>trace</code></td>
+                                    <td><code>trace</code></td>
+                                    <td>Enable diagnostic logging</td>
+                                    <td>Debug Live Response issues</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-panel" id="live-response-advanced">
+                    <h3 id="live-response-advanced-heading">Advanced Commands</h3>
+                    <div class="callout callout-warning">
+                        <div class="callout-title">Permission Required</div>
+                        <p>Advanced Live Response commands require the <strong>Live Response (Advanced)</strong> permission role. Ensure your account has been granted this access before attempting these commands.</p>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Command</th>
+                                    <th>Syntax</th>
+                                    <th>Use Case</th>
+                                    <th>Required Permissions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>run</code></td>
+                                    <td><code>run &lt;script.ps1&gt;</code></td>
+                                    <td>Execute PS1 from library</td>
+                                    <td><span class="badge badge-purple">Live Response (Advanced)</span></td>
+                                </tr>
+                                <tr>
+                                    <td><code>putfile</code></td>
+                                    <td><code>putfile &lt;filename&gt;</code></td>
+                                    <td>Upload file to device</td>
+                                    <td><span class="badge badge-purple">Live Response (Advanced)</span></td>
+                                </tr>
+                                <tr>
+                                    <td><code>remediate</code></td>
+                                    <td><code>remediate file &lt;path&gt;</code></td>
+                                    <td>Quarantine a file</td>
+                                    <td><span class="badge badge-purple">Live Response (Advanced)</span></td>
+                                </tr>
+                                <tr>
+                                    <td><code>undo</code></td>
+                                    <td><code>undo file &lt;path&gt;</code></td>
+                                    <td>Restore quarantined file</td>
+                                    <td><span class="badge badge-purple">Live Response (Advanced)</span></td>
+                                </tr>
+                                <tr>
+                                    <td><code>analyze</code></td>
+                                    <td><code>analyze file &lt;path&gt;</code></td>
+                                    <td>Submit for deep analysis</td>
+                                    <td><span class="badge badge-purple">Live Response (Advanced)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 6: KQL Queries for IR Scenarios
+             ============================================================ -->
+        <section class="section">
+            <h2 id="ir-scenarios"><span class="section-number">6</span> KQL Queries for IR Scenarios</h2>
+            <p>Scenario-specific KQL queries organized by attack type. These queries are designed for use during active incident investigations in MDE Advanced Hunting.</p>
+
+            <div class="tab-group">
+                <div class="tab-nav">
+                    <button class="tab-btn active" data-tab="kql-ransomware">Ransomware</button>
+                    <button class="tab-btn" data-tab="kql-lateral">Lateral Movement</button>
+                    <button class="tab-btn" data-tab="kql-exfil">Data Exfiltration</button>
+                    <button class="tab-btn" data-tab="kql-persistence">Persistence</button>
+                    <button class="tab-btn" data-tab="kql-credential">Credential Theft</button>
+                </div>
+
+                <!-- Ransomware Tab -->
+                <div class="tab-panel active" id="kql-ransomware">
+                    <h3 id="kql-ransomware-heading">Ransomware Detection Queries</h3>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">Mass File Encryption Detection</span>
+                                <span class="badge badge-red">Critical</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect processes performing a high volume of file modifications or renames within a short timeframe, which is a primary indicator of ransomware encryption activity.</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceFileEvents
+| where Timestamp > ago(1h)
+| where ActionType in ("FileModified", "FileRenamed")
+| summarize FileCount = count(),
+            UniqueExtensions = dcount(FileName),
+            SampleFiles = make_set(FileName, 5)
+    by DeviceName, InitiatingProcessFileName, InitiatingProcessCommandLine
+| where FileCount > 100
+| sort by FileCount desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Processes with unusually high file modification counts, sorted by volume. FileCount above 100 in 1 hour strongly indicates encryption activity.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">Ransomware Note Detection</span>
+                                <span class="badge badge-red">Critical</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Identify creation of ransom note files by matching common ransomware note naming patterns and file extensions.</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceFileEvents
+| where Timestamp > ago(24h)
+| where ActionType == "FileCreated"
+| where FileName matches regex @"(?i)(readme|decrypt|restore|recover|ransom|how_to|help_decrypt|!readme)\.(txt|html|hta)"
+| project Timestamp, DeviceName, FolderPath, FileName,
+         InitiatingProcessFileName, InitiatingProcessCommandLine
+| sort by Timestamp desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>List of ransom note files with full paths, creation times, and the process that created them.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">Shadow Copy Deletion Detection</span>
+                                <span class="badge badge-red">Critical</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect attempts to delete volume shadow copies or disable recovery options, a common ransomware pre-encryption technique (MITRE T1490).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceProcessEvents
+| where Timestamp > ago(24h)
+| where (FileName == "vssadmin.exe" and ProcessCommandLine has "delete shadows")
+    or (FileName == "wmic.exe" and ProcessCommandLine has "shadowcopy delete")
+    or (FileName == "bcdedit.exe" and ProcessCommandLine has "recoveryenabled" and ProcessCommandLine has "no")
+    or (FileName == "wbadmin.exe" and ProcessCommandLine has "delete" and ProcessCommandLine has "backup")
+| project Timestamp, DeviceName, FileName, ProcessCommandLine,
+         InitiatingProcessFileName, AccountName</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Any commands attempting to destroy backup and recovery capabilities, with full process lineage and responsible user account.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">Identify Encryption Process</span>
+                                <span class="badge badge-amber">Investigation</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Identify the specific process responsible for mass file operations by aggregating file events into 5-minute bins. Helps pinpoint the encryption binary.</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceFileEvents
+| where Timestamp > ago(2h)
+| where ActionType in ("FileModified", "FileRenamed", "FileCreated")
+| summarize FileOperations = count() by DeviceName, InitiatingProcessFileName,
+            InitiatingProcessId, bin(Timestamp, 5m)
+| where FileOperations > 50
+| sort by FileOperations desc
+| take 20</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Top 20 processes by file operation count in 5-minute windows. The encryption binary will show dramatically higher counts than normal processes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lateral Movement Tab -->
+                <div class="tab-panel" id="kql-lateral">
+                    <h3 id="kql-lateral-heading">Lateral Movement Detection Queries</h3>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">Remote Service Creation (PsExec)</span>
+                                <span class="badge badge-amber">Investigation</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect remote service creation typically used by PsExec and similar lateral movement tools. Processes spawned by services.exe or wmiprvse.exe on remote systems indicate potential lateral movement (MITRE T1021.002).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where InitiatingProcessFileName in ("services.exe", "wmiprvse.exe")
+| where FileName != "svchost.exe"
+| where ProcessCommandLine != ""
+| project Timestamp, DeviceName, FileName, ProcessCommandLine,
+         InitiatingProcessFileName, AccountName
+| sort by Timestamp desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Non-standard processes launched by services.exe or WMI, indicating remote execution on target systems.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">WMI Remote Execution</span>
+                                <span class="badge badge-amber">Investigation</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Identify processes launched remotely via WMI (MITRE T1047). Filters out legitimate WMI child processes to focus on suspicious remote executions.</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where InitiatingProcessFileName == "wmiprvse.exe"
+| where FileName !in ("WmiApSrv.exe", "WmiPrvSE.exe")
+| project Timestamp, DeviceName, FileName, ProcessCommandLine,
+         AccountName, InitiatingProcessCommandLine
+| sort by Timestamp desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Processes spawned by WMI provider that are not standard WMI components, indicating potential remote code execution.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">RDP Lateral Movement</span>
+                                <span class="badge badge-amber">Investigation</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect excessive RDP logons with local administrator privileges, which may indicate lateral movement using stolen credentials (MITRE T1021.001).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceLogonEvents
+| where Timestamp > ago(7d)
+| where LogonType == "RemoteInteractive"
+| where IsLocalAdmin == true
+| summarize RDPCount = count(),
+            SourceDevices = make_set(RemoteDeviceName),
+            Accounts = make_set(AccountName)
+    by DeviceName, bin(Timestamp, 1h)
+| where RDPCount > 3
+| sort by RDPCount desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Devices receiving multiple admin RDP sessions per hour, with source device and account details for pivot analysis.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">Pass-the-Hash Detection</span>
+                                <span class="badge badge-red">Critical</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect potential Pass-the-Hash attacks by identifying high volumes of NTLM network logons with admin privileges from single accounts (MITRE T1550.002).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceLogonEvents
+| where Timestamp > ago(7d)
+| where LogonType == "Network"
+| where Protocol == "NTLM"
+| where IsLocalAdmin == true
+| summarize NTLMCount = count(),
+            SourceDevices = make_set(RemoteDeviceName),
+            TargetDevices = make_set(DeviceName)
+    by AccountName, bin(Timestamp, 1h)
+| where NTLMCount > 5
+| sort by NTLMCount desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Accounts performing high-frequency NTLM authentications across multiple devices, a strong indicator of credential reuse via hash-based attacks.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">SMB Lateral Scanning</span>
+                                <span class="badge badge-amber">Investigation</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect devices scanning for SMB (port 445) targets, which often precedes lateral movement via PsExec, WMI, or direct file copy operations.</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceNetworkEvents
+| where Timestamp > ago(24h)
+| where RemotePort == 445
+| where ActionType == "ConnectionSuccess"
+| summarize TargetCount = dcount(RemoteIP),
+            Targets = make_set(RemoteIP, 20)
+    by DeviceName, InitiatingProcessFileName, bin(Timestamp, 15m)
+| where TargetCount > 5
+| sort by TargetCount desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Devices connecting to many unique SMB targets in short time windows, with the initiating process and target IP addresses.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Exfiltration Tab -->
+                <div class="tab-panel" id="kql-exfil">
+                    <h3 id="kql-exfil-heading">Data Exfiltration Detection Queries</h3>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">Large Outbound Data Transfers</span>
+                                <span class="badge badge-red">Critical</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect large volumes of data being sent to public IP addresses. Threshold set at 100 MB to reduce noise while catching significant data transfers (MITRE T1041).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceNetworkEvents
+| where Timestamp > ago(24h)
+| where ActionType == "ConnectionSuccess"
+| where RemoteIPType == "Public"
+| summarize TotalBytesSent = sum(SentBytes),
+            ConnectionCount = count(),
+            RemotePorts = make_set(RemotePort)
+    by DeviceName, RemoteIP, RemoteUrl, InitiatingProcessFileName
+| where TotalBytesSent > 104857600 // 100 MB
+| sort by TotalBytesSent desc
+| extend TotalMB = round(TotalBytesSent / 1048576.0, 2)</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Outbound connections exceeding 100 MB with destination IP, URL, total data volume in MB, and the responsible process.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">Cloud Storage Upload Detection</span>
+                                <span class="badge badge-amber">Investigation</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Identify connections to known cloud storage and file sharing services that may be used for data exfiltration (MITRE T1567.002).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceNetworkEvents
+| where Timestamp > ago(24h)
+| where RemoteUrl has_any ("dropbox.com", "drive.google.com", "onedrive.live.com",
+    "mega.nz", "wetransfer.com", "sendspace.com", "mediafire.com", "box.com")
+| summarize ConnectionCount = count(),
+            BytesSent = sum(SentBytes),
+            Devices = make_set(DeviceName)
+    by RemoteUrl, InitiatingProcessFileName
+| sort by BytesSent desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Connections to cloud storage providers with data volume, source devices, and process names for further investigation.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">DNS Tunneling Detection</span>
+                                <span class="badge badge-red">Critical</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect DNS tunneling by identifying unusually long domain queries and high volumes of unique subdomains, which can indicate data exfiltration over DNS (MITRE T1048.003).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceEvents
+| where Timestamp > ago(24h)
+| where ActionType == "DnsQueryResponse"
+| extend DomainLength = strlen(RemoteUrl)
+| where DomainLength > 50
+| summarize QueryCount = count(),
+            AvgLength = avg(DomainLength),
+            UniqueSubs = dcount(RemoteUrl)
+    by DeviceName, tostring(split(RemoteUrl, ".")[-2])
+| where QueryCount > 100
+| sort by QueryCount desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Domains with abnormally long queries and high unique subdomain counts, indicating potential DNS-based data exfiltration channels.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">Suspicious Archive Creation Before Exfil</span>
+                                <span class="badge badge-amber">Investigation</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect the use of archiving tools that may be used to stage data for exfiltration. Attackers commonly compress sensitive data before transferring it out (MITRE T1560.001).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceProcessEvents
+| where Timestamp > ago(24h)
+| where FileName in ("7z.exe", "rar.exe", "zip.exe", "tar.exe", "WinRAR.exe")
+    or (FileName == "powershell.exe" and ProcessCommandLine has "Compress-Archive")
+| project Timestamp, DeviceName, FileName, ProcessCommandLine,
+         AccountName, InitiatingProcessFileName
+| sort by Timestamp desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Archive creation events with command line details showing what data was compressed and by which user/process.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Persistence Tab -->
+                <div class="tab-panel" id="kql-persistence">
+                    <h3 id="kql-persistence-heading">Persistence Detection Queries</h3>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">Registry Autorun Modifications</span>
+                                <span class="badge badge-red">Critical</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect modifications to well-known registry autorun locations that provide persistence across system reboots (MITRE T1547.001).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceRegistryEvents
+| where Timestamp > ago(7d)
+| where ActionType in ("RegistryValueSet", "RegistryKeyCreated")
+| where RegistryKey has_any (
+    @"CurrentVersion\Run",
+    @"CurrentVersion\RunOnce",
+    @"CurrentVersion\RunServices",
+    @"Winlogon\Shell",
+    @"Winlogon\Userinit"
+)
+| project Timestamp, DeviceName, ActionType, RegistryKey,
+         RegistryValueName, RegistryValueData,
+         InitiatingProcessFileName, InitiatingProcessCommandLine
+| sort by Timestamp desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Registry modifications to autorun keys with full value data and the process responsible for the change.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">Scheduled Task Creation</span>
+                                <span class="badge badge-amber">Investigation</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect new scheduled tasks created via schtasks.exe, a common persistence and execution mechanism (MITRE T1053.005).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where FileName == "schtasks.exe" and ProcessCommandLine has "/create"
+| project Timestamp, DeviceName, ProcessCommandLine,
+         AccountName, InitiatingProcessFileName
+| sort by Timestamp desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>All scheduled task creation commands with full command line details, revealing the task name, trigger, and action configured.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">New Service Installation</span>
+                                <span class="badge badge-amber">Investigation</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect new Windows services being installed, which can be used for persistence and privilege escalation (MITRE T1543.003).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceEvents
+| where Timestamp > ago(7d)
+| where ActionType == "ServiceInstalled"
+| project Timestamp, DeviceName,
+         ServiceName = tostring(AdditionalFields.ServiceName),
+         ServicePath = tostring(AdditionalFields.ServiceBinaryPath),
+         ServiceStartType = tostring(AdditionalFields.ServiceStartType),
+         AccountName
+| sort by Timestamp desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Newly installed services with binary paths and start types. Investigate services with unusual binary paths or those installed by non-admin users.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">WMI Event Subscription</span>
+                                <span class="badge badge-red">Critical</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect WMI event subscriptions used for fileless persistence. Attackers create WMI bindings, consumers, and filters to execute code without leaving files on disk (MITRE T1546.003).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceEvents
+| where Timestamp > ago(30d)
+| where ActionType has "WmiBinding"
+    or ActionType has "WmiConsumer"
+    or ActionType has "WmiFilter"
+| project Timestamp, DeviceName, ActionType,
+         AdditionalFields, InitiatingProcessFileName
+| sort by Timestamp desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>WMI event subscription components (bindings, consumers, filters) with raw event data for forensic analysis.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">Startup Folder Modifications</span>
+                                <span class="badge badge-amber">Investigation</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect new files dropped into user or system startup folders for persistence across logons (MITRE T1547.001).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceFileEvents
+| where Timestamp > ago(7d)
+| where ActionType == "FileCreated"
+| where FolderPath has @"Start Menu\Programs\Startup"
+    or FolderPath has @"Microsoft\Windows\Start Menu\Programs\Startup"
+| project Timestamp, DeviceName, FileName, FolderPath, SHA256,
+         InitiatingProcessFileName, InitiatingProcessCommandLine
+| sort by Timestamp desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Files added to startup folders with SHA256 hashes for reputation checking and full process lineage.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Credential Theft Tab -->
+                <div class="tab-panel" id="kql-credential">
+                    <h3 id="kql-credential-heading">Credential Theft Detection Queries</h3>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">LSASS Access Detection</span>
+                                <span class="badge badge-red">Critical</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect non-standard processes accessing LSASS (Local Security Authority Subsystem Service), which stores credentials in memory. This is a primary indicator of credential dumping (MITRE T1003.001).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where FileName has "lsass" or ProcessCommandLine has "lsass"
+| where InitiatingProcessFileName !in ("svchost.exe", "lsass.exe", "MsMpEng.exe", "csrss.exe")
+| project Timestamp, DeviceName, InitiatingProcessFileName,
+         InitiatingProcessCommandLine, AccountName, FileName
+| sort by Timestamp desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Non-standard processes interacting with LSASS, with full process details for triage and forensic investigation.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">Credential Dumping Tool Detection</span>
+                                <span class="badge badge-red">Critical</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect known credential dumping tools and techniques by matching on binary names, command-line arguments, and common evasion methods like comsvcs.dll MiniDump (MITRE T1003).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where FileName in~ ("mimikatz.exe", "procdump.exe", "procdump64.exe", "nanodump.exe")
+    or ProcessCommandLine has_any ("sekurlsa", "lsadump", "kerberos::list",
+        "MiniDump", "comsvcs.dll", "createdump")
+    or ProcessCommandLine matches regex @"(?i)rundll32.*comsvcs.*MiniDump"
+| project Timestamp, DeviceName, FileName, ProcessCommandLine,
+         AccountName, InitiatingProcessFileName, SHA256
+| sort by Timestamp desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Credential dumping tool executions with SHA256 hashes for IOC tracking and full command lines showing the technique used.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">SAM Database Access</span>
+                                <span class="badge badge-amber">Investigation</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect access to SAM, SYSTEM, and SECURITY registry hive files, which can be used to extract local account password hashes offline (MITRE T1003.002).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceFileEvents
+| where Timestamp > ago(7d)
+| where FileName in ("SAM", "SYSTEM", "SECURITY")
+| where FolderPath has @"config" or FolderPath has @"Temp" or FolderPath has @"repair"
+| where InitiatingProcessFileName !in ("svchost.exe", "TiWorker.exe", "poqexec.exe")
+| project Timestamp, DeviceName, ActionType, FileName, FolderPath,
+         InitiatingProcessFileName, InitiatingProcessCommandLine
+| sort by Timestamp desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Non-standard file operations on SAM/SYSTEM/SECURITY hive files, especially copies to Temp directories or unusual locations.</p>
+                        </div>
+                    </div>
+
+                    <div class="kql-block">
+                        <div class="kql-header">
+                            <div class="kql-meta">
+                                <span class="kql-title">Kerberoasting Detection</span>
+                                <span class="badge badge-red">Critical</span>
+                            </div>
+                        </div>
+                        <div class="kql-description">
+                            <p>Detect Kerberoasting attacks by identifying high volumes of TGS requests using RC4 encryption (0x17), which attackers use to obtain crackable service ticket hashes (MITRE T1558.003).</p>
+                        </div>
+                        <pre><code class="language-kql">DeviceEvents
+| where Timestamp > ago(7d)
+| where ActionType == "KerberosTgsRequest"
+| where tostring(AdditionalFields.EncryptionType) has "0x17" // RC4
+| summarize RequestCount = count(),
+            ServiceNames = make_set(tostring(AdditionalFields.ServiceName))
+    by DeviceName, AccountName, bin(Timestamp, 1h)
+| where RequestCount > 10
+| sort by RequestCount desc</code></pre>
+                        <div class="kql-output">
+                            <h5>Expected Output</h5>
+                            <p>Accounts requesting high volumes of RC4-encrypted Kerberos service tickets, with targeted service names for blast radius assessment.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 7: Evidence Preservation
+             ============================================================ -->
+        <section class="section">
+            <h2 id="evidence"><span class="section-number">7</span> Evidence Preservation</h2>
+            <p>Proper evidence handling is critical for incident investigation, potential legal proceedings, and regulatory compliance. Use the chain of custody template below for every piece of evidence collected.</p>
+
+            <div class="collapsible expanded" id="evidence-chain-of-custody">
+                <div class="collapsible-header">
+                    <svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span class="collapsible-title">Chain of Custody Template</span>
+                    <span class="badge badge-cyan collapsible-badge">Template</span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="collapsible-body">
+                        <div class="template-block">
+                            <div class="template-header">
+                                <span class="template-title">Evidence Chain of Custody Record</span>
+                            </div>
+                            <div class="template-body">
+                                <div class="template-field">
+                                    <div class="template-field-label">Evidence ID</div>
+                                    <div class="template-field-value">[Auto-generated: INC-YYYY-NNNN-E##]</div>
+                                </div>
+                                <div class="template-field">
+                                    <div class="template-field-label">Description</div>
+                                    <div class="template-field-value">[Brief description of the evidence]</div>
+                                </div>
+                                <div class="template-field">
+                                    <div class="template-field-label">Source Device</div>
+                                    <div class="template-field-value">[Device name and MDE Device ID]</div>
+                                </div>
+                                <div class="template-field">
+                                    <div class="template-field-label">Collected By</div>
+                                    <div class="template-field-value">[Analyst name and ID]</div>
+                                </div>
+                                <div class="template-field">
+                                    <div class="template-field-label">Collection Date/Time</div>
+                                    <div class="template-field-value">[UTC timestamp]</div>
+                                </div>
+                                <div class="template-field">
+                                    <div class="template-field-label">Collection Method</div>
+                                    <div class="template-field-value">[MDE Investigation Package / Live Response / Manual]</div>
+                                </div>
+                                <div class="template-field">
+                                    <div class="template-field-label">Hash (SHA256)</div>
+                                    <div class="template-field-value">[Hash of collected artifact]</div>
+                                </div>
+                                <div class="template-field">
+                                    <div class="template-field-label">Storage Location</div>
+                                    <div class="template-field-value">[Secure evidence share path]</div>
+                                </div>
+                                <div class="template-field">
+                                    <div class="template-field-label">Chain of Custody Log</div>
+                                    <div class="template-field-value">[Date | Action | Person | Notes]</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout callout-info">
+                <div class="callout-title">Evidence Handling Best Practices</div>
+                <p>Always hash evidence immediately upon collection. Store in write-protected shares with restricted access. Document every transfer, access, and modification in the chain of custody log. Use UTC timestamps consistently.</p>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 8: Containment Strategies
+             ============================================================ -->
+        <section class="section">
+            <h2 id="containment"><span class="section-number">8</span> Containment Strategies</h2>
+            <p>Select the appropriate containment strategy based on the attack type. Primary containment should be executed immediately upon confirmation; secondary containment provides additional defense in depth.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Attack Type</th>
+                            <th>Primary Containment</th>
+                            <th>Secondary Containment</th>
+                            <th>Key Considerations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row-critical">
+                            <td><strong>Ransomware</strong></td>
+                            <td>Isolate device(s) immediately</td>
+                            <td>Restrict app execution, disable affected accounts</td>
+                            <td>Preserve encrypted files for potential decryption</td>
+                        </tr>
+                        <tr class="row-critical">
+                            <td><strong>Lateral Movement</strong></td>
+                            <td>Isolate compromised devices, disable compromised accounts</td>
+                            <td>Network segmentation via firewall rules</td>
+                            <td>Map full blast radius before containment</td>
+                        </tr>
+                        <tr class="row-critical">
+                            <td><strong>Data Exfiltration</strong></td>
+                            <td>Isolate device, block destination IPs/domains</td>
+                            <td>Monitor for continued attempts</td>
+                            <td>Preserve evidence of what was exfiltrated</td>
+                        </tr>
+                        <tr class="row-high">
+                            <td><strong>Persistence/Backdoor</strong></td>
+                            <td>Isolate device</td>
+                            <td>Restrict app execution</td>
+                            <td>Full forensic analysis before eradication</td>
+                        </tr>
+                        <tr class="row-critical">
+                            <td><strong>Credential Theft</strong></td>
+                            <td>Disable compromised accounts, force password reset</td>
+                            <td>Isolate source device, revoke all sessions</td>
+                            <td>Check downstream access with stolen credentials</td>
+                        </tr>
+                        <tr class="row-high">
+                            <td><strong>Phishing (Active)</strong></td>
+                            <td>Block sender domain, quarantine emails</td>
+                            <td>Isolate devices that engaged</td>
+                            <td>Scope impact to all recipients</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 9: Eradication Checklists
+             ============================================================ -->
+        <section class="section">
+            <h2 id="eradication"><span class="section-number">9</span> Eradication Checklists</h2>
+            <p>Use the appropriate eradication checklist based on the incident type. Complete all items before proceeding to recovery. Track progress using the interactive checkboxes.</p>
+
+            <button class="btn-expand-all">Expand All</button>
+
+            <div class="collapsible expanded" id="eradicate-ransomware-section">
+                <div class="collapsible-header">
+                    <svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span class="collapsible-title">Ransomware Eradication</span>
+                    <span class="badge badge-red collapsible-badge">High Priority</span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="collapsible-body">
+                        <div class="checklist-section" data-checklist-id="eradicate-ransom">
+                            <div class="checklist-item">
+                                <input type="checkbox" id="er-ransom-0">
+                                <label for="er-ransom-0">Identify and terminate all malicious processes</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="er-ransom-1">
+                                <label for="er-ransom-1">Remove malicious files via MDE Stop &amp; Quarantine</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="er-ransom-2">
+                                <label for="er-ransom-2">Remove persistence mechanisms (registry, scheduled tasks, services)</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="er-ransom-3">
+                                <label for="er-ransom-3">Clean WMI event subscriptions</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="er-ransom-4">
+                                <label for="er-ransom-4">Remove dropped scripts and tools</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="er-ransom-5">
+                                <label for="er-ransom-5">Run full AV scan on all affected devices</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="er-ransom-6">
+                                <label for="er-ransom-6">Verify no remaining malicious artifacts via Advanced Hunting</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="er-ransom-7">
+                                <label for="er-ransom-7">Validate endpoint protection is active and updated</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapsible" id="eradicate-creds-section">
+                <div class="collapsible-header">
+                    <svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span class="collapsible-title">Credential Theft Eradication</span>
+                    <span class="badge badge-amber collapsible-badge">High Priority</span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="collapsible-body">
+                        <div class="checklist-section" data-checklist-id="eradicate-creds">
+                            <div class="checklist-item">
+                                <input type="checkbox" id="er-creds-0">
+                                <label for="er-creds-0">Reset passwords for all compromised accounts</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="er-creds-1">
+                                <label for="er-creds-1">Revoke all active sessions and tokens</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="er-creds-2">
+                                <label for="er-creds-2">Reset Kerberos TGT (krbtgt) if domain compromise suspected</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="er-creds-3">
+                                <label for="er-creds-3">Review and remove unauthorized account modifications</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="er-creds-4">
+                                <label for="er-creds-4">Check for newly created accounts by attacker</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="er-creds-5">
+                                <label for="er-creds-5">Remove credential harvesting tools</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="er-creds-6">
+                                <label for="er-creds-6">Verify no remaining access paths</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 10: Recovery Validation
+             ============================================================ -->
+        <section class="section">
+            <h2 id="recovery"><span class="section-number">10</span> Recovery Validation</h2>
+            <p>Before returning any system to production, validate that all recovery criteria are met. All items must be completed and signed off by the incident commander.</p>
+
+            <div class="checklist-section" data-checklist-id="recovery-validation">
+                <div class="checklist-item">
+                    <input type="checkbox" id="rv-0">
+                    <label for="rv-0">Verify no active alerts on recovered devices (24h clean period)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="rv-1">
+                    <label for="rv-1">Confirm endpoint protection is enabled and updated</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="rv-2">
+                    <label for="rv-2">Validate no persistence mechanisms remain</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="rv-3">
+                    <label for="rv-3">Verify normal network communication patterns</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="rv-4">
+                    <label for="rv-4">Confirm user can authenticate normally</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="rv-5">
+                    <label for="rv-5">Check that business applications function correctly</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="rv-6">
+                    <label for="rv-6">Verify backup integrity for affected systems</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="rv-7">
+                    <label for="rv-7">Document recovery actions and timeline</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="rv-8">
+                    <label for="rv-8">Obtain sign-off from incident commander for return to production</label>
+                </div>
+            </div>
+
+            <div class="callout callout-success">
+                <div class="callout-title">Recovery Complete</div>
+                <p>Once all recovery validation items are checked off and signed by the incident commander, schedule the Lessons Learned review within 5 business days. Document all findings in the post-incident report.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/kql-highlight.js" defer></script>
+    <script src="js/kql-clipboard.js" defer></script>
+    <script src="js/collapsible.js" defer></script>
+    <script src="js/checklist.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/search.js" defer></script>
+
+    <!-- Tab switching logic -->
+    <script>
+    (function() {
+        'use strict';
+        function initTabs() {
+            var tabGroups = document.querySelectorAll('.tab-group');
+            tabGroups.forEach(function(group) {
+                var buttons = group.querySelectorAll('.tab-btn');
+                var panels = group.querySelectorAll('.tab-panel');
+
+                buttons.forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        var targetId = btn.getAttribute('data-tab');
+
+                        buttons.forEach(function(b) { b.classList.remove('active'); });
+                        panels.forEach(function(p) { p.classList.remove('active'); });
+
+                        btn.classList.add('active');
+                        var targetPanel = document.getElementById(targetId);
+                        if (targetPanel) {
+                            targetPanel.classList.add('active');
+                        }
+                    });
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initTabs);
+        } else {
+            initTabs();
+        }
+    })();
+    </script>
+</body>
+</html>

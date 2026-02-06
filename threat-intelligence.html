@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threat Intelligence — CyberSOC Playbook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/kql.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <!-- Top Bar -->
+    <header class="topbar">
+        <div class="topbar-logo">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="28" height="28" rx="6" stroke="#06b6d4" stroke-width="2"/>
+                <path d="M16 8v16M8 16h16" stroke="#06b6d4" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="16" cy="16" r="4" stroke="#a855f7" stroke-width="2"/>
+                <circle cx="16" cy="16" r="8" stroke="#06b6d4" stroke-width="1" opacity="0.4"/>
+            </svg>
+            <span>Cyber<span class="logo-accent">SOC</span> Playbook</span>
+        </div>
+
+        <div class="topbar-search">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Search playbooks... (Ctrl+K)" aria-label="Search playbooks">
+            <div class="search-results"></div>
+        </div>
+
+        <div class="topbar-actions">
+            <button class="btn-topbar btn-print" aria-label="Print this page" title="Print">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            </button>
+            <button class="btn-topbar btn-menu" aria-label="Toggle menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" aria-label="Main navigation">
+        <div class="sidebar-section-title">Operations Center</div>
+        <ul class="sidebar-nav">
+            <li>
+                <a href="index.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    <span class="nav-label">Dashboard</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-section-title">Playbooks</div>
+        <ul class="sidebar-nav">
+            <li>
+                <a href="threat-intelligence.html" class="active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+                    <span class="nav-label">Threat Intelligence</span>
+                </a>
+            </li>
+            <li>
+                <a href="protective-monitoring.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span class="nav-label">Protective Monitoring</span>
+                </a>
+            </li>
+            <li>
+                <a href="incident-management.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+                    <span class="nav-label">Incident Management</span>
+                </a>
+            </li>
+            <li>
+                <a href="alert-triage.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                    <span class="nav-label">Alert Triage</span>
+                </a>
+            </li>
+            <li>
+                <a href="incident-response.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <span class="nav-label">Incident Response</span>
+                </a>
+            </li>
+            <li>
+                <a href="vulnerability-management.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                    <span class="nav-label">Vulnerability Management</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-toc"><div class="sidebar-section-title">On This Page</div><ul class="sidebar-toc-list"></ul></div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main">
+        <div class="page-header">
+            <h1>
+                <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+                Threat Intelligence
+            </h1>
+            <p class="page-subtitle">Intelligence lifecycle management, IoC handling via MDE APIs, threat hunting based on CTI feeds, MITRE ATT&amp;CK mapping, and report templates.</p>
+            <div class="page-meta">
+                <span>
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 14s6-3.5 6-8V3.5L8 1.5 2 3.5V6c0 4.5 6 8 6 8z"/></svg>
+                    7 KQL Queries
+                </span>
+                <span>
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="2" y1="6" x2="14" y2="6"/><line x1="6" y1="2" x2="6" y2="6"/></svg>
+                    4 Templates
+                </span>
+                <span>
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><polyline points="8 4 8 8 11 10"/></svg>
+                    6 Procedures
+                </span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             Section 1: Intelligence Lifecycle
+             ============================================================ -->
+        <section class="section">
+            <h2 id="intelligence-lifecycle"><span class="section-number">1</span> Intelligence Lifecycle</h2>
+            <p>The threat intelligence lifecycle provides a structured framework for producing actionable intelligence. Each phase builds on the previous one, creating a continuous feedback loop that improves intelligence quality over time.</p>
+
+            <button class="btn-expand-all">Expand All</button>
+
+            <!-- Phase 1: Planning & Direction -->
+            <div class="collapsible expanded" id="phase-planning">
+                <div class="collapsible-header">
+                    <svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span class="collapsible-title">Planning &amp; Direction</span>
+                    <span class="badge badge-cyan collapsible-badge">Phase 1</span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="collapsible-body">
+                        <h3 id="planning-direction">Planning &amp; Direction</h3>
+                        <ul>
+                            <li>Define Priority Intelligence Requirements (PIRs) based on organizational risk profile</li>
+                            <li>Identify key stakeholders and their intelligence needs (SOC, IR, Management, IT Ops)</li>
+                            <li>Establish collection priorities aligned with MITRE ATT&amp;CK threat landscape</li>
+                            <li>Review and update PIRs quarterly</li>
+                        </ul>
+
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>PIR ID</th>
+                                        <th>Requirement</th>
+                                        <th>Priority</th>
+                                        <th>Consumer</th>
+                                        <th>Review Cycle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="row-critical">
+                                        <td><strong>PIR-001</strong></td>
+                                        <td>Track ransomware groups targeting our industry sector</td>
+                                        <td><span class="badge badge-red">Critical</span></td>
+                                        <td>SOC, IR</td>
+                                        <td>Monthly</td>
+                                    </tr>
+                                    <tr class="row-high">
+                                        <td><strong>PIR-002</strong></td>
+                                        <td>Monitor for exploits targeting our exposed software stack</td>
+                                        <td><span class="badge badge-amber">High</span></td>
+                                        <td>Vuln Mgmt, IT Ops</td>
+                                        <td>Weekly</td>
+                                    </tr>
+                                    <tr class="row-high">
+                                        <td><strong>PIR-003</strong></td>
+                                        <td>Identify credential harvesting campaigns targeting our domain</td>
+                                        <td><span class="badge badge-amber">High</span></td>
+                                        <td>SOC, Identity Team</td>
+                                        <td>Weekly</td>
+                                    </tr>
+                                    <tr class="row-medium">
+                                        <td><strong>PIR-004</strong></td>
+                                        <td>Track nation-state actors relevant to our geography/sector</td>
+                                        <td><span class="badge badge-cyan">Medium</span></td>
+                                        <td>CISO, IR</td>
+                                        <td>Monthly</td>
+                                    </tr>
+                                    <tr class="row-medium">
+                                        <td><strong>PIR-005</strong></td>
+                                        <td>Monitor dark web for leaked organizational data</td>
+                                        <td><span class="badge badge-cyan">Medium</span></td>
+                                        <td>IR, Legal</td>
+                                        <td>Monthly</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2: Collection -->
+            <div class="collapsible" id="phase-collection">
+                <div class="collapsible-header">
+                    <svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span class="collapsible-title">Collection</span>
+                    <span class="badge badge-cyan collapsible-badge">Phase 2</span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="collapsible-body">
+                        <h3 id="collection">Collection</h3>
+                        <p>Maintain a comprehensive inventory of intelligence sources. Prioritize sources that align with PIRs and validate source reliability regularly.</p>
+
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Source Type</th>
+                                        <th>Source Name</th>
+                                        <th>Data Type</th>
+                                        <th>Collection Frequency</th>
+                                        <th>Integration Method</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Open Source</td>
+                                        <td><strong>AlienVault OTX</strong></td>
+                                        <td>IoCs, Threat Reports</td>
+                                        <td>Real-time</td>
+                                        <td>API Feed</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Open Source</td>
+                                        <td><strong>Abuse.ch (URLhaus, MalwareBazaar)</strong></td>
+                                        <td>Malicious URLs, Malware Samples</td>
+                                        <td>Real-time</td>
+                                        <td>API Feed</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Commercial</td>
+                                        <td><strong>Microsoft Threat Intelligence</strong></td>
+                                        <td>IoCs, Threat Analytics</td>
+                                        <td>Real-time</td>
+                                        <td>Native MDE Integration</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Commercial</td>
+                                        <td><strong>VirusTotal Enterprise</strong></td>
+                                        <td>File/URL Analysis, Hunting</td>
+                                        <td>On-demand</td>
+                                        <td>API</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Internal</td>
+                                        <td><strong>MDE Alert Data</strong></td>
+                                        <td>Detections, IoCs</td>
+                                        <td>Real-time</td>
+                                        <td>Advanced Hunting (KQL)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Internal</td>
+                                        <td><strong>Incident Reports</strong></td>
+                                        <td>TTPs, IoCs, Lessons Learned</td>
+                                        <td>Per Incident</td>
+                                        <td>Manual</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Industry</td>
+                                        <td><strong>ISACs/ISAOs</strong></td>
+                                        <td>Sector-specific Threat Reports</td>
+                                        <td>Daily/Weekly</td>
+                                        <td>Email, Portal</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Government</td>
+                                        <td><strong>CISA Advisories</strong></td>
+                                        <td>Vulnerability, Threat Advisories</td>
+                                        <td>As published</td>
+                                        <td>RSS, Email</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3: Processing -->
+            <div class="collapsible" id="phase-processing">
+                <div class="collapsible-header">
+                    <svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span class="collapsible-title">Processing</span>
+                    <span class="badge badge-cyan collapsible-badge">Phase 3</span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="collapsible-body">
+                        <h3 id="processing">Processing</h3>
+                        <p>Transform raw intelligence data into a standardized, enriched format ready for analysis. Follow these steps for every incoming intelligence feed.</p>
+
+                        <div class="procedure-steps">
+                            <div class="procedure-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">Normalize incoming IoC data to standard formats (STIX 2.1 preferred)</div>
+                            </div>
+                            <div class="procedure-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">Deduplicate against existing IoC database</div>
+                            </div>
+                            <div class="procedure-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">Validate IoC freshness &mdash; discard indicators older than 90 days without recent activity</div>
+                            </div>
+                            <div class="procedure-step">
+                                <div class="step-number">4</div>
+                                <div class="step-content">Enrich with context: source confidence, first/last seen, associated TTPs</div>
+                            </div>
+                            <div class="procedure-step">
+                                <div class="step-number">5</div>
+                                <div class="step-content">Categorize by type: File Hash, IP, Domain, URL, Email Address</div>
+                            </div>
+                            <div class="procedure-step">
+                                <div class="step-number">6</div>
+                                <div class="step-content">Tag with MITRE ATT&amp;CK techniques where applicable</div>
+                            </div>
+                            <div class="procedure-step">
+                                <div class="step-number">7</div>
+                                <div class="step-content">Assign confidence score: High (confirmed malicious), Medium (likely malicious), Low (suspicious)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4: Analysis -->
+            <div class="collapsible" id="phase-analysis">
+                <div class="collapsible-header">
+                    <svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span class="collapsible-title">Analysis</span>
+                    <span class="badge badge-cyan collapsible-badge">Phase 4</span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="collapsible-body">
+                        <h3 id="analysis">Analysis</h3>
+                        <p>Apply confidence scoring to all intelligence products. Use the following definitions consistently across the team to ensure standardized assessment.</p>
+
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Level</th>
+                                        <th>Score</th>
+                                        <th>Criteria</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="row-critical">
+                                        <td><strong>High</strong></td>
+                                        <td>80&ndash;100</td>
+                                        <td>Multiple independent sources confirm, observed in active attacks, correlated with known threat actor</td>
+                                        <td>Block immediately, alert on detection</td>
+                                    </tr>
+                                    <tr class="row-medium">
+                                        <td><strong>Medium</strong></td>
+                                        <td>40&ndash;79</td>
+                                        <td>Single reliable source, associated with suspicious activity, matches known TTP patterns</td>
+                                        <td>Alert and investigate, consider blocking</td>
+                                    </tr>
+                                    <tr class="row-low">
+                                        <td><strong>Low</strong></td>
+                                        <td>1&ndash;39</td>
+                                        <td>Single unverified source, aged intelligence, weak correlation</td>
+                                        <td>Monitor only, do not block</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 5: Dissemination -->
+            <div class="collapsible" id="phase-dissemination">
+                <div class="collapsible-header">
+                    <svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span class="collapsible-title">Dissemination</span>
+                    <span class="badge badge-cyan collapsible-badge">Phase 5</span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="collapsible-body">
+                        <h3 id="dissemination">Dissemination</h3>
+                        <p>Deliver intelligence products to the right consumers at the right time using the appropriate classification level. Follow TLP markings strictly.</p>
+
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Report Type</th>
+                                        <th>Audience</th>
+                                        <th>Frequency</th>
+                                        <th>Classification</th>
+                                        <th>Format</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Tactical Alert</strong></td>
+                                        <td>SOC Analysts</td>
+                                        <td>As needed</td>
+                                        <td><span class="badge badge-green">TLP:GREEN</span></td>
+                                        <td>1-page brief</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Daily Threat Brief</strong></td>
+                                        <td>SOC Team</td>
+                                        <td>Daily</td>
+                                        <td><span class="badge badge-green">TLP:GREEN</span></td>
+                                        <td>Email/Dashboard</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Weekly Intelligence Summary</strong></td>
+                                        <td>Security Leadership</td>
+                                        <td>Weekly</td>
+                                        <td><span class="badge badge-amber">TLP:AMBER</span></td>
+                                        <td>PDF Report</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Strategic Intelligence Brief</strong></td>
+                                        <td>CISO, CTO</td>
+                                        <td>Monthly</td>
+                                        <td><span class="badge badge-amber">TLP:AMBER</span></td>
+                                        <td>Executive presentation</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Threat Actor Profile</strong></td>
+                                        <td>IR Team, SOC</td>
+                                        <td>As needed</td>
+                                        <td><span class="badge badge-amber">TLP:AMBER</span></td>
+                                        <td>Detailed dossier</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Campaign Tracking Report</strong></td>
+                                        <td>SOC, IR, Management</td>
+                                        <td>As needed</td>
+                                        <td><span class="badge badge-red">TLP:RED</span></td>
+                                        <td>Restricted report</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 6: Feedback -->
+            <div class="collapsible" id="phase-feedback">
+                <div class="collapsible-header">
+                    <svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span class="collapsible-title">Feedback</span>
+                    <span class="badge badge-cyan collapsible-badge">Phase 6</span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="collapsible-body">
+                        <h3 id="feedback">Feedback</h3>
+                        <p>Continuously improve the intelligence program by collecting structured feedback from consumers. Complete this checklist as part of each quarterly review cycle.</p>
+
+                        <div class="checklist-section" data-checklist-id="intel-feedback">
+                            <div class="checklist-item">
+                                <input type="checkbox" id="intel-feedback-0">
+                                <label for="intel-feedback-0">Collect consumer feedback on intelligence product usefulness</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="intel-feedback-1">
+                                <label for="intel-feedback-1">Track IoC hit rates (what percentage of submitted IoCs triggered detections)</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="intel-feedback-2">
+                                <label for="intel-feedback-2">Measure time from intelligence receipt to operational action</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="intel-feedback-3">
+                                <label for="intel-feedback-3">Review false positive rate of intelligence-driven detections</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="intel-feedback-4">
+                                <label for="intel-feedback-4">Assess whether PIRs remain aligned with organizational risk</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="intel-feedback-5">
+                                <label for="intel-feedback-5">Update collection priorities based on feedback</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="intel-feedback-6">
+                                <label for="intel-feedback-6">Document lessons learned from intelligence failures</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 2: MDE Threat Analytics Integration
+             ============================================================ -->
+        <section class="section">
+            <h2 id="mde-threat-analytics"><span class="section-number">2</span> MDE Threat Analytics Integration</h2>
+            <p>Microsoft Defender for Endpoint Threat Analytics provides curated intelligence reports with direct visibility into your tenant's exposure. Use this procedure to operationalize threat analytics data.</p>
+
+            <h3 id="threat-analytics-procedure">Threat Analytics Review Procedure</h3>
+            <div class="procedure-steps">
+                <div class="procedure-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Navigate to Microsoft 365 Defender portal &rarr; Threat Analytics</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Review "Latest Threats" for new threat analytics reports</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">For each relevant report, review: Analyst Report (detailed write-up), Impacted Assets (affected devices), Mitigations (recommended actions)</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">Check "Exposed Devices" count and identify specific devices at risk</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">Review and implement recommended mitigations</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">Create custom detection rules from threat analytics IoCs if not already covered</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">7</div>
+                    <div class="step-content">Update internal threat tracking with new intelligence</div>
+                </div>
+            </div>
+
+            <h3 id="threat-analytics-checklist">Threat Analytics Review Checklist</h3>
+            <div class="checklist-section" data-checklist-id="threat-analytics-review">
+                <div class="checklist-item">
+                    <input type="checkbox" id="ta-review-0">
+                    <label for="ta-review-0">Review new Threat Analytics reports (daily)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="ta-review-1">
+                    <label for="ta-review-1">Check for exposed/impacted devices in your tenant</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="ta-review-2">
+                    <label for="ta-review-2">Validate existing detections cover new threat TTPs</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="ta-review-3">
+                    <label for="ta-review-3">Implement recommended mitigations</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="ta-review-4">
+                    <label for="ta-review-4">Share relevant reports with SOC team</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="ta-review-5">
+                    <label for="ta-review-5">Update threat intelligence platform with new IoCs</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="ta-review-6">
+                    <label for="ta-review-6">Create custom detection rules if gaps identified</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 3: IoC Management via MDE APIs
+             ============================================================ -->
+        <section class="section">
+            <h2 id="ioc-management"><span class="section-number">3</span> IoC Management via MDE APIs</h2>
+            <p>Programmatically manage indicators of compromise in Microsoft Defender for Endpoint using the Threat Intelligence API. Automate IoC submission, lifecycle management, and hygiene.</p>
+
+            <h3 id="api-reference">API Reference</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Method</th>
+                            <th>Endpoint</th>
+                            <th>Required Permission</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Submit Indicator</strong></td>
+                            <td><code>POST</code></td>
+                            <td><code>/api/indicators</code></td>
+                            <td><span class="badge badge-purple">Ti.ReadWrite</span></td>
+                            <td>Supports batch submission</td>
+                        </tr>
+                        <tr>
+                            <td><strong>List All Indicators</strong></td>
+                            <td><code>GET</code></td>
+                            <td><code>/api/indicators</code></td>
+                            <td><span class="badge badge-purple">Ti.ReadWrite</span></td>
+                            <td>Paginated, filter by type</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Get Indicator by ID</strong></td>
+                            <td><code>GET</code></td>
+                            <td><code>/api/indicators/{id}</code></td>
+                            <td><span class="badge badge-purple">Ti.ReadWrite</span></td>
+                            <td>Returns full indicator detail</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Update Indicator</strong></td>
+                            <td><code>PATCH</code></td>
+                            <td><code>/api/indicators/{id}</code></td>
+                            <td><span class="badge badge-purple">Ti.ReadWrite</span></td>
+                            <td>Update action, severity, etc.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Delete Indicator</strong></td>
+                            <td><code>DELETE</code></td>
+                            <td><code>/api/indicators/{id}</code></td>
+                            <td><span class="badge badge-purple">Ti.ReadWrite</span></td>
+                            <td>Soft delete, can be restored</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 id="ioc-types">IoC Types and Actions</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>IoC Type</th>
+                            <th>Supported Actions</th>
+                            <th>Example Value</th>
+                            <th>Recommended TTL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>FileSha1</strong></td>
+                            <td>Alert, AlertAndBlock, Allowed, Audit, Block, Warn</td>
+                            <td><code>a1b2c3d4...</code></td>
+                            <td>90 days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FileSha256</strong></td>
+                            <td>Alert, AlertAndBlock, Allowed, Audit, Block, Warn</td>
+                            <td><code>a1b2c3d4e5f6...</code></td>
+                            <td>90 days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IpAddress</strong></td>
+                            <td>Alert, AlertAndBlock, Allowed, Audit, Block, Warn</td>
+                            <td><code>203.0.113.50</code></td>
+                            <td>30 days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DomainName</strong></td>
+                            <td>Alert, AlertAndBlock, Allowed, Audit, Block, Warn</td>
+                            <td><code>malicious-domain.com</code></td>
+                            <td>60 days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Url</strong></td>
+                            <td>Alert, AlertAndBlock, Allowed, Audit, Block, Warn</td>
+                            <td><code>https://evil.com/payload</code></td>
+                            <td>30 days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CertificateThumbprint</strong></td>
+                            <td>Alert, AlertAndBlock, Allowed, Block</td>
+                            <td><code>AB:CD:EF:12...</code></td>
+                            <td>180 days</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-warning">
+                <div class="callout-title">IoC Hygiene</div>
+                <p>Review and expire stale indicators monthly. Excessive indicators degrade endpoint performance. Target maximum 15,000 active indicators. Remove IoCs that have not triggered any detections in 60 days.</p>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 4: Threat Hunting KQL Queries
+             ============================================================ -->
+        <section class="section">
+            <h2 id="threat-hunting-queries"><span class="section-number">4</span> Threat Hunting KQL Queries</h2>
+            <p>Use these KQL queries in MDE Advanced Hunting to proactively hunt for threats based on CTI feeds, IoC matches, and behavioral indicators.</p>
+
+            <!-- KQL: Hunt for Known Malicious File Hashes -->
+            <h3 id="kql-ti-hashes">Hunt for Known Malicious File Hashes</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Hunt for Known Malicious File Hashes</span>
+                        <span class="badge badge-cyan">Threat Hunting</span>
+                        <span class="badge badge-purple">IoC Matching</span>
+                    </div>
+                </div>
+                <div class="kql-description">
+                    <p>Search for files matching known malicious SHA256 hashes received from CTI feeds. Uses an inline datatable for quick IoC lookups without external data sources.</p>
+                </div>
+                <pre><code class="language-kql">let maliciousHashes = datatable(SHA256:string, ThreatName:string) [
+    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "EmptyFile",
+    "abc123def456...", "Cobalt Strike Beacon",
+    "789xyz...", "Mimikatz Variant"
+];
+DeviceFileEvents
+| where Timestamp > ago(30d)
+| join kind=inner maliciousHashes on SHA256
+| project Timestamp, DeviceName, FileName, FolderPath, SHA256, ThreatName,
+         InitiatingProcessFileName, AccountName
+| sort by Timestamp desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Devices with files matching known malicious hashes, enriched with threat name, file location, and the process that created the file.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>When new IoC hashes are received from CTI feeds. Update the datatable with current indicators before running.</p>
+                </div>
+            </div>
+
+            <!-- KQL: Hunt for C2 Domain Communication -->
+            <h3 id="kql-ti-c2">Hunt for C2 Domain Communication</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Hunt for C2 Domain Communication</span>
+                        <span class="badge badge-red">Critical</span>
+                        <span class="badge badge-cyan">Threat Hunting</span>
+                    </div>
+                </div>
+                <div class="kql-description">
+                    <p>Identify devices communicating with known command-and-control domains. Cross-references network events against a list of threat-actor-attributed C2 infrastructure.</p>
+                </div>
+                <pre><code class="language-kql">let c2Domains = datatable(Domain:string, ThreatActor:string) [
+    "evil-c2-server.com", "APT-Example",
+    "malware-callback.net", "Ransomware-Group-X"
+];
+DeviceNetworkEvents
+| where Timestamp > ago(14d)
+| where RemoteUrl has_any (c2Domains | project Domain)
+| project Timestamp, DeviceName, RemoteUrl, RemoteIP, RemotePort,
+         InitiatingProcessFileName, InitiatingProcessCommandLine
+| sort by Timestamp desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Devices communicating with known C2 domains, with full network connection details and initiating process information.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Proactive hunting against C2 infrastructure. Update domain list with current intelligence before running.</p>
+                </div>
+            </div>
+
+            <!-- KQL: Hunt for Suspicious IP Connections -->
+            <h3 id="kql-ti-suspicious-ip">Hunt for Suspicious IP Connections</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Hunt for Suspicious IP Connections</span>
+                        <span class="badge badge-amber">Investigation</span>
+                        <span class="badge badge-cyan">Threat Hunting</span>
+                    </div>
+                </div>
+                <div class="kql-description">
+                    <p>Detect connections to suspicious IP addresses flagged by intelligence sources. Enriches results with context from the intelligence feed including traffic volume.</p>
+                </div>
+                <pre><code class="language-kql">let suspiciousIPs = datatable(IP:string, Context:string) [
+    "203.0.113.50", "Known C2 Infrastructure",
+    "198.51.100.25", "Phishing Campaign Server"
+];
+DeviceNetworkEvents
+| where Timestamp > ago(14d)
+| where RemoteIP in (suspiciousIPs | project IP)
+| join kind=leftouter suspiciousIPs on $left.RemoteIP == $right.IP
+| project Timestamp, DeviceName, RemoteIP, Context, RemotePort,
+         InitiatingProcessFileName, SentBytes = tolong(SentBytes),
+         ReceivedBytes = tolong(ReceivedBytes)
+| sort by Timestamp desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Connections to flagged IPs enriched with intelligence context, data transfer volumes, and responsible process details.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>When suspicious IPs are received from threat intelligence feeds or ISAC advisories.</p>
+                </div>
+            </div>
+
+            <!-- KQL: Hunt for ATT&CK T1059 -->
+            <h3 id="kql-ti-t1059">Hunt for ATT&amp;CK T1059 &mdash; Command &amp; Scripting Interpreter</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Hunt for ATT&amp;CK T1059 &mdash; Command &amp; Scripting Interpreter</span>
+                        <span class="badge badge-red">Critical</span>
+                        <span class="badge badge-purple">MITRE ATT&amp;CK</span>
+                    </div>
+                </div>
+                <div class="kql-description">
+                    <p>Detect suspicious use of scripting interpreters with obfuscation or download indicators. Targets encoded commands, execution policy bypasses, and common living-off-the-land techniques.</p>
+                </div>
+                <pre><code class="language-kql">DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where FileName in ("powershell.exe", "pwsh.exe", "cmd.exe",
+    "wscript.exe", "cscript.exe", "mshta.exe", "bash.exe")
+| where ProcessCommandLine has_any (
+    "-enc", "-EncodedCommand", "bypass", "hidden",
+    "Invoke-Expression", "IEX", "downloadstring",
+    "Net.WebClient", "Start-BitsTransfer",
+    "certutil", "bitsadmin"
+)
+| project Timestamp, DeviceName, FileName, ProcessCommandLine,
+         AccountName, InitiatingProcessFileName
+| sort by Timestamp desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Suspicious use of scripting interpreters with command lines containing obfuscation, download cradles, or execution policy bypasses.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Regular threat hunting for living-off-the-land techniques. Run weekly or when CTI indicates active campaigns using script-based payloads.</p>
+                </div>
+            </div>
+
+            <!-- KQL: Correlate Threat Analytics with Device Activity -->
+            <h3 id="kql-ti-analytics-correlation">Correlate Threat Analytics with Device Activity</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Correlate Threat Analytics with Device Activity</span>
+                        <span class="badge badge-amber">Investigation</span>
+                        <span class="badge badge-cyan">Threat Analytics</span>
+                    </div>
+                </div>
+                <div class="kql-description">
+                    <p>Correlate MDE alerts tagged with specific ATT&amp;CK techniques against device activity. Identifies devices with the highest concentration of technique-specific alerts.</p>
+                </div>
+                <pre><code class="language-kql">AlertInfo
+| where Timestamp > ago(7d)
+| where AttackTechniques has_any ("T1059", "T1547", "T1003")
+| join kind=inner AlertEvidence on AlertId
+| where EntityType == "Machine"
+| summarize AlertCount = count(),
+            Titles = make_set(Title),
+            Techniques = make_set(AttackTechniques)
+    by DeviceName, Severity
+| sort by AlertCount desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Devices ranked by alert count for specified ATT&amp;CK techniques, with alert titles and severity for prioritization.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>After reviewing Threat Analytics reports to identify which devices in your tenant are most affected by specific threats.</p>
+                </div>
+            </div>
+
+            <!-- KQL: IoC Indicator Detections (Last 24h) -->
+            <h3 id="kql-ti-indicators-triggered">IoC Indicator Detections (Last 24h)</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">IoC Indicator Detections (Last 24h)</span>
+                        <span class="badge badge-red">Critical</span>
+                        <span class="badge badge-purple">IoC Matching</span>
+                    </div>
+                </div>
+                <div class="kql-description">
+                    <p>Review all IoC indicator detections from the past 24 hours. Shows which submitted indicators triggered on endpoints, including the action taken and initiating process.</p>
+                </div>
+                <pre><code class="language-kql">DeviceEvents
+| where Timestamp > ago(24h)
+| where ActionType == "IndicatorDetected"
+| project Timestamp, DeviceName,
+         IndicatorValue = tostring(AdditionalFields.IndicatorValue),
+         IndicatorType = tostring(AdditionalFields.IndicatorType),
+         IndicatorAction = tostring(AdditionalFields.IndicatorAction),
+         InitiatingProcessFileName
+| sort by Timestamp desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>All IoC detections with indicator value, type (hash, IP, domain, URL), action taken (alert, block), and the process that triggered the detection.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Daily monitoring to validate IoC effectiveness and identify active threats matching submitted indicators.</p>
+                </div>
+            </div>
+
+            <!-- KQL: Detect New Potential C2 Beaconing Patterns -->
+            <h3 id="kql-ti-new-c2-patterns">Detect New Potential C2 Beaconing Patterns</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Detect New Potential C2 Beaconing Patterns</span>
+                        <span class="badge badge-red">Critical</span>
+                        <span class="badge badge-cyan">Threat Hunting</span>
+                    </div>
+                </div>
+                <div class="kql-description">
+                    <p>Identify potential C2 beaconing by detecting regular-interval connections to public IPs. Looks for patterns consistent with ~60-second beacon intervals commonly used by implants.</p>
+                </div>
+                <pre><code class="language-kql">DeviceNetworkEvents
+| where Timestamp > ago(24h)
+| where RemoteIPType == "Public"
+| summarize ConnectionCount = count(),
+            AvgInterval = avg(datetime_diff('second', Timestamp, prev(Timestamp)))
+    by DeviceName, RemoteIP, InitiatingProcessFileName, bin(Timestamp, 1h)
+| where ConnectionCount > 20
+| where AvgInterval between (50 .. 70) // Regular 60-second beaconing
+| sort by ConnectionCount desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Devices exhibiting regular-interval connections to public IPs that match beaconing patterns, with connection counts and average intervals.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Proactive threat hunting for undiscovered C2 channels. Adjust the interval range based on known implant beacon configurations.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 5: MITRE ATT&CK Mapping
+             ============================================================ -->
+        <section class="section">
+            <h2 id="mitre-mapping"><span class="section-number">5</span> MITRE ATT&amp;CK Mapping</h2>
+            <p>Map observed threat behaviors and MDE alert categories to the MITRE ATT&amp;CK framework for standardized threat documentation, detection gap analysis, and threat actor attribution.</p>
+
+            <h3 id="mapping-procedure">Mapping Procedure</h3>
+            <div class="procedure-steps">
+                <div class="procedure-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Identify observed behaviors from MDE alerts and investigation</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Map each behavior to ATT&amp;CK technique(s) using the Enterprise Matrix</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">Document the specific sub-technique where applicable (e.g., T1059.001 for PowerShell)</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">Record evidence supporting the mapping (alert ID, KQL query results, artifacts)</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">Update the organization's ATT&amp;CK Navigator heat map</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">Cross-reference with known threat actor profiles for attribution support</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">7</div>
+                    <div class="step-content">Identify gaps in detection coverage for observed tactics</div>
+                </div>
+            </div>
+
+            <h3 id="category-attack-map">MDE Alert Category to ATT&amp;CK Mapping</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>MDE Alert Category</th>
+                            <th>ATT&amp;CK Tactic</th>
+                            <th>Common Techniques</th>
+                            <th>Detection Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Initial Access</strong></td>
+                            <td>Initial Access (TA0001)</td>
+                            <td>T1566 Phishing, T1190 Exploit Public-Facing App</td>
+                            <td>Email events, Network events</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Execution</strong></td>
+                            <td>Execution (TA0002)</td>
+                            <td>T1059 Command &amp; Scripting, T1204 User Execution</td>
+                            <td>Process events</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Persistence</strong></td>
+                            <td>Persistence (TA0003)</td>
+                            <td>T1547 Boot/Logon Autostart, T1053 Scheduled Task</td>
+                            <td>Registry, File events</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Privilege Escalation</strong></td>
+                            <td>Privilege Escalation (TA0004)</td>
+                            <td>T1068 Exploitation, T1134 Access Token Manipulation</td>
+                            <td>Process events</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Defense Evasion</strong></td>
+                            <td>Defense Evasion (TA0005)</td>
+                            <td>T1055 Process Injection, T1036 Masquerading</td>
+                            <td>Image load, Process events</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Credential Access</strong></td>
+                            <td>Credential Access (TA0006)</td>
+                            <td>T1003 OS Credential Dumping, T1558 Kerberos</td>
+                            <td>Process, Device events</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Discovery</strong></td>
+                            <td>Discovery (TA0007)</td>
+                            <td>T1087 Account Discovery, T1082 System Info</td>
+                            <td>Process events</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lateral Movement</strong></td>
+                            <td>Lateral Movement (TA0008)</td>
+                            <td>T1021 Remote Services, T1570 Lateral Tool Transfer</td>
+                            <td>Logon, Network events</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Collection</strong></td>
+                            <td>Collection (TA0009)</td>
+                            <td>T1560 Archive Data, T1005 Data from Local System</td>
+                            <td>File, Process events</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Command and Control</strong></td>
+                            <td>C2 (TA0011)</td>
+                            <td>T1071 Application Layer Protocol, T1095 Non-App Layer</td>
+                            <td>Network events</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Exfiltration</strong></td>
+                            <td>Exfiltration (TA0010)</td>
+                            <td>T1041 Exfil Over C2, T1567 Exfil Over Web Service</td>
+                            <td>Network events</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Impact</strong></td>
+                            <td>Impact (TA0040)</td>
+                            <td>T1486 Data Encrypted for Impact, T1489 Service Stop</td>
+                            <td>File, Process events</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 6: Report Templates
+             ============================================================ -->
+        <section class="section">
+            <h2 id="report-templates"><span class="section-number">6</span> Report Templates</h2>
+            <p>Standardized templates for threat intelligence products. Use these templates to ensure consistency across all intelligence outputs and facilitate rapid dissemination.</p>
+
+            <!-- Tactical Alert Template -->
+            <h3 id="template-tactical">Tactical Alert Template</h3>
+            <div class="template-block">
+                <div class="template-header">
+                    <span class="template-title">Tactical Alert</span>
+                </div>
+                <div class="template-body">
+                    <div class="template-field">
+                        <div class="template-field-label">TLP CLASSIFICATION</div>
+                        <div class="template-field-value">[TLP:GREEN / TLP:AMBER / TLP:RED]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">DATE</div>
+                        <div class="template-field-value">[YYYY-MM-DD]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">TITLE</div>
+                        <div class="template-field-value">[Brief descriptive title]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">SUMMARY</div>
+                        <div class="template-field-value">[2-3 sentence overview of the threat]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">THREAT ACTOR</div>
+                        <div class="template-field-value">[Name or "Unknown" with cluster designation]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">TARGET SECTORS</div>
+                        <div class="template-field-value">[Industries/sectors targeted]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">TTPs (MITRE ATT&amp;CK)</div>
+                        <div class="template-field-value">[Technique IDs and names]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">INDICATORS OF COMPROMISE</div>
+                        <div class="template-field-value">[Table: Type | Value | Context]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">RECOMMENDED ACTIONS</div>
+                        <div class="template-field-value">[Numbered list of actions]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">REFERENCES</div>
+                        <div class="template-field-value">[Source links]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ANALYST | CONFIDENCE</div>
+                        <div class="template-field-value">[Name] | [High/Medium/Low]</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategic Intelligence Brief -->
+            <h3 id="template-strategic">Strategic Intelligence Brief</h3>
+            <div class="template-block">
+                <div class="template-header">
+                    <span class="template-title">Strategic Intelligence Brief</span>
+                </div>
+                <div class="template-body">
+                    <div class="template-field">
+                        <div class="template-field-label">CLASSIFICATION</div>
+                        <div class="template-field-value">[TLP level]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">PERIOD</div>
+                        <div class="template-field-value">[Reporting period]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">EXECUTIVE SUMMARY</div>
+                        <div class="template-field-value">[3-5 sentence landscape overview]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">KEY TRENDS</div>
+                        <div class="template-field-value">[Bulleted trend analysis]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">THREAT ACTOR UPDATES</div>
+                        <div class="template-field-value">[New/changed actor activity]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">EMERGING THREATS</div>
+                        <div class="template-field-value">[New TTPs, vulnerabilities, campaigns]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">INDUSTRY IMPACT</div>
+                        <div class="template-field-value">[Relevance to organization's sector]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">RISK ASSESSMENT</div>
+                        <div class="template-field-value">[Current risk posture evaluation]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">RECOMMENDED STRATEGIC ACTIONS</div>
+                        <div class="template-field-value">[Long-term recommendations]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">OUTLOOK</div>
+                        <div class="template-field-value">[Prediction for next reporting period]</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Threat Actor Profile -->
+            <h3 id="template-actor">Threat Actor Profile</h3>
+            <div class="template-block">
+                <div class="template-header">
+                    <span class="template-title">Threat Actor Profile</span>
+                </div>
+                <div class="template-body">
+                    <div class="template-field">
+                        <div class="template-field-label">ACTOR NAME</div>
+                        <div class="template-field-value">[Primary name and aliases]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ALSO KNOWN AS</div>
+                        <div class="template-field-value">[Alternative designations]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ORIGIN</div>
+                        <div class="template-field-value">[Assessed country/region of origin]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">MOTIVATION</div>
+                        <div class="template-field-value">[Financial, Espionage, Hacktivism, Destruction]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">TARGET SECTORS</div>
+                        <div class="template-field-value">[Industries targeted]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">TARGET REGIONS</div>
+                        <div class="template-field-value">[Geographies targeted]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ACTIVE SINCE</div>
+                        <div class="template-field-value">[First observed date]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">LAST ACTIVITY</div>
+                        <div class="template-field-value">[Most recent observed activity]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">TTPs SUMMARY</div>
+                        <div class="template-field-value">[Key MITRE ATT&amp;CK techniques]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">KNOWN TOOLS</div>
+                        <div class="template-field-value">[Malware, frameworks, utilities used]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">IoCs</div>
+                        <div class="template-field-value">[Table of key indicators]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ASSESSMENT</div>
+                        <div class="template-field-value">[Analyst assessment of threat level to org]</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campaign Tracking -->
+            <h3 id="template-campaign">Campaign Tracking</h3>
+            <div class="template-block">
+                <div class="template-header">
+                    <span class="template-title">Campaign Tracking Report</span>
+                </div>
+                <div class="template-body">
+                    <div class="template-field">
+                        <div class="template-field-label">CAMPAIGN ID</div>
+                        <div class="template-field-value">[Internal tracking ID]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">CAMPAIGN NAME</div>
+                        <div class="template-field-value">[Descriptive name]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ATTRIBUTED TO</div>
+                        <div class="template-field-value">[Threat actor or "Unattributed"]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">STATUS</div>
+                        <div class="template-field-value">[Active / Concluded / Monitoring]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">FIRST OBSERVED</div>
+                        <div class="template-field-value">[Date]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">LAST OBSERVED</div>
+                        <div class="template-field-value">[Date]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">TARGET</div>
+                        <div class="template-field-value">[Who is being targeted]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ATTACK VECTOR</div>
+                        <div class="template-field-value">[Initial access method]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">OBJECTIVE</div>
+                        <div class="template-field-value">[Assessed goal of campaign]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">IoCs</div>
+                        <div class="template-field-value">[Table of campaign-specific indicators]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">TIMELINE</div>
+                        <div class="template-field-value">[Key events in chronological order]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ORGANIZATIONAL EXPOSURE</div>
+                        <div class="template-field-value">[Are we affected? How?]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ACTIONS TAKEN</div>
+                        <div class="template-field-value">[What we've done in response]</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 7: Microsoft Threat Intelligence Integration
+             ============================================================ -->
+        <section class="section">
+            <h2 id="microsoft-ti"><span class="section-number">7</span> Microsoft Threat Intelligence Integration</h2>
+            <p>Leverage Microsoft's native threat intelligence capabilities within Defender for Endpoint to enhance detection, investigation, and response. This section covers integration procedures for maximizing the value of Microsoft TI data.</p>
+
+            <h3 id="microsoft-ti-procedure">Integration Procedure</h3>
+            <div class="procedure-steps">
+                <div class="procedure-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Ensure Microsoft Threat Intelligence data connector is enabled in Defender XDR</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Navigate to Threat Intelligence &rarr; Intel Profiles to review Microsoft's threat actor tracking</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">Check Threat Analytics for reports matching organizational risk profile</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">Leverage Microsoft TI enrichment in Advanced Hunting by joining with ThreatIntelligenceIndicator table</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">Configure automated actions for high-confidence Microsoft TI indicators</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">Review Microsoft Security Blog and MSRC for emerging threat intelligence</div>
+                </div>
+                <div class="procedure-step">
+                    <div class="step-number">7</div>
+                    <div class="step-content">Correlate Microsoft TI with internal observations for higher confidence assessments</div>
+                </div>
+            </div>
+
+            <div class="callout callout-info">
+                <div class="callout-title">Microsoft Threat Intelligence</div>
+                <p>Microsoft Threat Intelligence provides enriched context on threat actors, campaigns, and tools. This data is automatically integrated into MDE alerts and can be queried via Advanced Hunting for proactive threat hunting.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/kql-highlight.js" defer></script>
+    <script src="js/kql-clipboard.js" defer></script>
+    <script src="js/collapsible.js" defer></script>
+    <script src="js/checklist.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/search.js" defer></script>
+</body>
+</html>

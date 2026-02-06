@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protective Security Monitoring — CyberSOC Playbook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/kql.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <!-- Top Bar -->
+    <header class="topbar">
+        <div class="topbar-logo">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="28" height="28" rx="6" stroke="#06b6d4" stroke-width="2"/>
+                <path d="M16 8v16M8 16h16" stroke="#06b6d4" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="16" cy="16" r="4" stroke="#a855f7" stroke-width="2"/>
+                <circle cx="16" cy="16" r="8" stroke="#06b6d4" stroke-width="1" opacity="0.4"/>
+            </svg>
+            <span>Cyber<span class="logo-accent">SOC</span> Playbook</span>
+        </div>
+
+        <div class="topbar-search">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Search playbooks... (Ctrl+K)" aria-label="Search playbooks">
+            <div class="search-results"></div>
+        </div>
+
+        <div class="topbar-actions">
+            <button class="btn-topbar btn-print" aria-label="Print this page" title="Print">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            </button>
+            <button class="btn-topbar btn-menu" aria-label="Toggle menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" aria-label="Main navigation">
+        <div class="sidebar-section-title">Operations Center</div>
+        <ul class="sidebar-nav">
+            <li>
+                <a href="index.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    <span class="nav-label">Dashboard</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-section-title">Playbooks</div>
+        <ul class="sidebar-nav">
+            <li>
+                <a href="threat-intelligence.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+                    <span class="nav-label">Threat Intelligence</span>
+                </a>
+            </li>
+            <li>
+                <a href="protective-monitoring.html" class="active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span class="nav-label">Protective Monitoring</span>
+                </a>
+            </li>
+            <li>
+                <a href="incident-management.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+                    <span class="nav-label">Incident Management</span>
+                </a>
+            </li>
+            <li>
+                <a href="alert-triage.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                    <span class="nav-label">Alert Triage</span>
+                </a>
+            </li>
+            <li>
+                <a href="incident-response.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <span class="nav-label">Incident Response</span>
+                </a>
+            </li>
+            <li>
+                <a href="vulnerability-management.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                    <span class="nav-label">Vulnerability Management</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-toc"><div class="sidebar-section-title">On This Page</div><ul class="sidebar-toc-list"></ul></div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main">
+        <div class="page-header">
+            <h1>
+                <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Protective Security Monitoring
+            </h1>
+            <p class="page-subtitle">Alert monitoring workflows, Secure Score management, ASR rules monitoring, EDR telemetry baselines, and false positive reduction procedures.</p>
+            <div class="page-meta">
+                <span>
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="2" y1="6" x2="14" y2="6"/><line x1="6" y1="2" x2="6" y2="6"/></svg>
+                    Last Updated: 2025-02
+                </span>
+                <span>
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 14s6-3.5 6-8V3.5L8 1.5 2 3.5V6c0 4.5 6 8 6 8z"/></svg>
+                    Microsoft Defender for Endpoint
+                </span>
+                <span>
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><polyline points="8 4 8 8 11 10"/></svg>
+                    13 KQL Queries | 3 Checklists | 7 Procedures
+                </span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             Section 1: Alert Monitoring Workflows
+             ============================================================ -->
+        <section class="section">
+            <h2 id="alert-monitoring"><span class="section-number">1</span> Alert Monitoring Workflows</h2>
+            <p>Standardized monitoring workflows ensure consistent coverage across shifts and reduce the risk of missed detections. These checklists and procedures define the minimum operational expectations for SOC analysts monitoring Microsoft Defender for Endpoint.</p>
+
+            <!-- Shift Handover Procedure -->
+            <h3 id="shift-handover">Shift Handover Procedure</h3>
+
+            <div class="collapsible expanded">
+                <div class="collapsible-header">
+                    <svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span class="collapsible-title">Shift Handover Checklist</span>
+                    <span class="collapsible-badge"><span class="badge badge-amber">Required</span></span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="collapsible-body">
+                        <div class="checklist-section" data-checklist-id="shift-handover">
+                            <div class="checklist-progress">
+                                <div class="checklist-progress-bar">
+                                    <div class="checklist-progress-fill" style="width: 0%"></div>
+                                </div>
+                                <span class="checklist-progress-text">0 / 7</span>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="sh-1">
+                                <label for="sh-1">Review open P1/P2 incidents and current status</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="sh-2">
+                                <label for="sh-2">Check unassigned High/Critical alerts in queue</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="sh-3">
+                                <label for="sh-3">Review automated investigation results pending action</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="sh-4">
+                                <label for="sh-4">Brief incoming team on ongoing investigations</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="sh-5">
+                                <label for="sh-5">Transfer ownership of active incidents in ticketing system</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="sh-6">
+                                <label for="sh-6">Confirm communication channels are active</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="sh-7">
+                                <label for="sh-7">Log handover completion with timestamp</label>
+                            </div>
+                            <button class="btn-reset-checklist" data-checklist-id="shift-handover">
+                                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                                Reset Checklist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Monitoring Checklist -->
+            <h3 id="daily-monitoring">Daily Monitoring Checklist</h3>
+
+            <div class="collapsible expanded">
+                <div class="collapsible-header">
+                    <svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span class="collapsible-title">Daily Monitoring Checklist</span>
+                    <span class="collapsible-badge"><span class="badge badge-green">Daily</span></span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="collapsible-body">
+                        <div class="checklist-section" data-checklist-id="daily-monitoring">
+                            <div class="checklist-progress">
+                                <div class="checklist-progress-bar">
+                                    <div class="checklist-progress-fill" style="width: 0%"></div>
+                                </div>
+                                <span class="checklist-progress-text">0 / 9</span>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="dm-1">
+                                <label for="dm-1">Review and triage unassigned High/Critical alerts</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="dm-2">
+                                <label for="dm-2">Check for recurring alert patterns (same device/user/detection)</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="dm-3">
+                                <label for="dm-3">Validate automated investigation completions</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="dm-4">
+                                <label for="dm-4">Review suppressed alerts for potential misconfigurations</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="dm-5">
+                                <label for="dm-5">Check device health and sensor status dashboard</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="dm-6">
+                                <label for="dm-6">Review ASR rule audit events for anomalies</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="dm-7">
+                                <label for="dm-7">Verify threat intelligence indicator feeds are current</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="dm-8">
+                                <label for="dm-8">Check Secure Score for any degradation</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="dm-9">
+                                <label for="dm-9">Document shift observations in daily log</label>
+                            </div>
+                            <button class="btn-reset-checklist" data-checklist-id="daily-monitoring">
+                                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                                Reset Checklist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alert Queue Management -->
+            <h3 id="alert-queue">Alert Queue Management</h3>
+
+            <div class="callout callout-info">
+                <div class="callout-title">Monitoring Cadence</div>
+                <p><strong>High/Critical</strong> &mdash; Real-time (continuous monitoring) | <strong>Medium</strong> &mdash; Every 15 minutes | <strong>Low</strong> &mdash; Hourly sweep | <strong>Informational</strong> &mdash; Daily review batch</p>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 2: MDE Secure Score
+             ============================================================ -->
+        <section class="section">
+            <h2 id="secure-score"><span class="section-number">2</span> MDE Secure Score</h2>
+            <p>Microsoft Secure Score for Devices provides a quantitative measure of your endpoint security posture. Regular monitoring and improvement of this score reduces attack surface and strengthens defensive coverage across the fleet.</p>
+
+            <h3 id="secure-score-procedure">Secure Score Review Procedure</h3>
+            <ol class="procedure-steps">
+                <li>Navigate to Microsoft 365 Defender portal &rarr; Secure Score</li>
+                <li>Review current Exposure Score (lower is better) and Secure Score for Devices</li>
+                <li>Identify top security recommendations sorted by impact</li>
+                <li>Assess implementation feasibility for each recommendation</li>
+                <li>Create remediation tickets for approved recommendations</li>
+                <li>Track implementation progress weekly</li>
+                <li>Report Secure Score trends to management monthly</li>
+            </ol>
+
+            <!-- KQL: Devices Not Meeting Secure Configuration -->
+            <h3 id="kql-pm-config-compliance">Devices Not Meeting Secure Configuration</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Devices Not Meeting Secure Configuration</span>
+                        <span class="badge badge-cyan">DeviceTvmSecureConfigurationAssessment</span>
+                        <span class="badge badge-green">Posture</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Identifies the top 20 non-compliant secure configurations across the device fleet. Groups by configuration ID and name with a count of non-compliant devices and a sample list of affected device names.</p>
+                </div>
+<pre><code class="language-kql">DeviceTvmSecureConfigurationAssessment
+| where IsCompliant == 0
+| where IsApplicable == 1
+| summarize NonCompliantCount = count(),
+            Devices = make_set(DeviceName, 10)
+    by ConfigurationId, ConfigurationName, ConfigurationCategory
+| sort by NonCompliantCount desc
+| take 20</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Top 20 non-compliant configurations across the fleet. Each row includes the configuration ID, name, category, count of non-compliant devices, and a sample of up to 10 affected device names.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Weekly secure posture review. Prioritize remediation tickets based on the non-compliant count to maximize security improvement per remediation effort.</p>
+                </div>
+            </div>
+
+            <!-- KQL: Configuration Compliance Trend -->
+            <h3 id="kql-pm-compliance-trend">Configuration Compliance Trend</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Configuration Compliance Trend</span>
+                        <span class="badge badge-cyan">DeviceTvmSecureConfigurationAssessment</span>
+                        <span class="badge badge-purple">Trending</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Calculates the daily compliance percentage over the past 30 days. Tracks the ratio of compliant configurations to total applicable configurations, providing a trend line for security posture improvement.</p>
+                </div>
+<pre><code class="language-kql">DeviceTvmSecureConfigurationAssessment
+| where Timestamp > ago(30d)
+| summarize CompliantCount = countif(IsCompliant == 1),
+            TotalCount = count()
+    by bin(Timestamp, 1d)
+| extend ComplianceRate = round(CompliantCount * 100.0 / TotalCount, 1)
+| project Timestamp, ComplianceRate, CompliantCount, TotalCount
+| sort by Timestamp asc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Daily compliance percentage over 30 days. Each row includes the date, compliance rate, compliant count, and total count for trending posture improvement over time.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Trending posture improvement. Include in monthly management reports to demonstrate security posture trajectory and the impact of remediation efforts.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 3: ASR Rules Monitoring
+             ============================================================ -->
+        <section class="section">
+            <h2 id="asr-monitoring"><span class="section-number">3</span> ASR Rules Monitoring</h2>
+            <p>Attack Surface Reduction (ASR) rules are critical preventive controls in Microsoft Defender for Endpoint. Monitoring ASR events ensures rules are operating as expected, identifies candidates for mode promotion (Audit to Block), and surfaces potential business impact from blocked legitimate activities.</p>
+
+            <!-- ASR Rules Reference -->
+            <h3 id="asr-reference">ASR Rules Reference</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>GUID</th>
+                            <th>Rule Name</th>
+                            <th>Recommended Mode</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>56a863a9-875e-4185-98a7-b882c64b5ce5</code></td>
+                            <td>Block abuse of exploited vulnerable signed drivers</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c</code></td>
+                            <td>Block Adobe Reader from creating child processes</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>d4f940ab-401b-4efc-aadc-ad5f3c50688a</code></td>
+                            <td>Block all Office applications from creating child processes</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2</code></td>
+                            <td>Block credential stealing from LSASS</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>be9ba2d9-53ea-4cdc-84e5-9b1eeee46550</code></td>
+                            <td>Block executable content from email client and webmail</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>01443614-cd74-433a-b99e-2ecdc07bfc25</code></td>
+                            <td>Block executable files from running unless they meet criteria</td>
+                            <td><span class="badge badge-amber">Audit</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>5beb7efe-fd9a-4556-801d-275e5ffc04cc</code></td>
+                            <td>Block execution of potentially obfuscated scripts</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>d3e037e1-3eb8-44c8-a917-57927947596d</code></td>
+                            <td>Block JavaScript or VBScript from launching downloaded content</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>3b576869-a4ec-4529-8536-b80a7769e899</code></td>
+                            <td>Block Office applications from creating executable content</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84</code></td>
+                            <td>Block Office applications from injecting code into other processes</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>26190899-1602-49e8-8b27-eb1d0a1ce869</code></td>
+                            <td>Block Office communication apps from creating child processes</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>e6db77e5-3df2-4cf1-b95a-636979351e5b</code></td>
+                            <td>Block persistence through WMI event subscription</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>d1e49aac-8f56-4280-b9ba-993a6d77406c</code></td>
+                            <td>Block process creations originating from PSExec and WMI commands</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>33ddedf1-c6e0-47cb-833e-de6133960387</code></td>
+                            <td>Block rebooting machine in Safe Mode</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4</code></td>
+                            <td>Block untrusted and unsigned processes that run from USB</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>c0033c00-d16d-4114-a5a0-dc9b3a7d2ceb</code></td>
+                            <td>Block use of copied or impersonated system tools</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>a8f5898e-1dc8-49a9-9878-85004b8a61e6</code></td>
+                            <td>Block Webshell creation for Servers</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>92e97fa1-2edf-4476-bdd6-9dd0b4dddc7b</code></td>
+                            <td>Block Win32 API calls from Office macros</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>c1db55ab-c21a-4637-bb3f-a12568109d35</code></td>
+                            <td>Use advanced protection against ransomware</td>
+                            <td><span class="badge badge-red">Block</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ASR KQL Queries -->
+            <h3 id="asr-kql-queries">ASR KQL Queries</h3>
+
+            <!-- KQL: ASR Events Summary -->
+            <h3 id="kql-pm-asr-summary">ASR Events Summary (Last 30 Days)</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">ASR Events Summary (Last 30 Days)</span>
+                        <span class="badge badge-cyan">DeviceEvents</span>
+                        <span class="badge badge-green">Overview</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Provides a high-level summary of all ASR rule events over the past 30 days, grouped by action type. Use this to understand the overall volume and distribution of ASR activity across the environment.</p>
+                </div>
+<pre><code class="language-kql">DeviceEvents
+| where Timestamp > ago(30d)
+| where ActionType startswith "Asr"
+| summarize EventCount = count() by ActionType
+| sort by EventCount desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>List of all ASR action types with their event counts over the last 30 days. Includes both blocked and audited events for each rule.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Weekly ASR review meetings. Provides the baseline view of ASR activity to identify noisy rules and confirm expected coverage across the fleet.</p>
+                </div>
+            </div>
+
+            <!-- KQL: ASR Blocked Events with Process Details -->
+            <h3 id="kql-pm-asr-blocked">ASR Blocked Events with Process Details</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">ASR Blocked Events with Process Details</span>
+                        <span class="badge badge-cyan">DeviceEvents</span>
+                        <span class="badge badge-red">Blocked</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Retrieves the most recent 100 ASR blocked events with full process details including file name, folder path, command line, and the initiating process. Critical for investigating what was blocked and determining if the block was appropriate.</p>
+                </div>
+<pre><code class="language-kql">DeviceEvents
+| where Timestamp > ago(7d)
+| where ActionType startswith "Asr"
+| where ActionType endswith "Blocked"
+| project Timestamp, DeviceName, ActionType, FileName,
+         FolderPath, ProcessCommandLine, InitiatingProcessFileName
+| sort by Timestamp desc
+| take 100</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Last 100 ASR blocked events with timestamps, device names, rule action types, file names, folder paths, command lines, and parent process names for each blocked action.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Daily monitoring of ASR blocks. Investigate any unexpected blocks that may indicate either a real attack or a legitimate application being incorrectly blocked.</p>
+                </div>
+            </div>
+
+            <!-- KQL: ASR Audit Events -->
+            <h3 id="kql-pm-asr-audit">ASR Audit Events &mdash; Candidates for Block Mode</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">ASR Audit Events &mdash; Candidates for Block Mode</span>
+                        <span class="badge badge-cyan">DeviceEvents</span>
+                        <span class="badge badge-amber">Audit</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Summarizes ASR rules currently in audit mode, showing event counts, affected device counts, and sample file names. Used to assess whether audit-mode rules are safe to promote to block mode without causing business disruption.</p>
+                </div>
+<pre><code class="language-kql">DeviceEvents
+| where Timestamp > ago(30d)
+| where ActionType startswith "Asr"
+| where ActionType endswith "Audited"
+| summarize AuditCount = count(),
+            Devices = dcount(DeviceName),
+            SampleFiles = make_set(FileName, 5)
+    by ActionType
+| sort by AuditCount desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>List of audited ASR rules with event count, number of affected devices, and up to 5 sample file names that triggered each audit event.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Monthly ASR rule promotion review. Rules in audit mode with zero or very low legitimate application triggers are candidates for promotion to block mode.</p>
+                </div>
+            </div>
+
+            <!-- KQL: Top ASR-Triggering Applications -->
+            <h3 id="kql-pm-asr-apps">Top ASR-Triggering Applications</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Top ASR-Triggering Applications</span>
+                        <span class="badge badge-cyan">DeviceEvents</span>
+                        <span class="badge badge-purple">Analysis</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Identifies the top 25 applications that trigger ASR rules most frequently, along with which specific rules they trigger. Useful for identifying applications that may need exclusions or that represent a security risk.</p>
+                </div>
+<pre><code class="language-kql">DeviceEvents
+| where Timestamp > ago(30d)
+| where ActionType startswith "Asr"
+| summarize TriggerCount = count(),
+            Rules = make_set(ActionType)
+    by FileName, FolderPath
+| sort by TriggerCount desc
+| take 25</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Top 25 applications by ASR trigger count, including file name, folder path, total trigger count, and the list of ASR rules each application triggered.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Identifying noisy applications for ASR exclusion review. Applications with high trigger counts across multiple rules may need targeted exclusions or further security assessment.</p>
+                </div>
+            </div>
+
+            <!-- KQL: ASR Rule Coverage per Device -->
+            <h3 id="kql-pm-asr-coverage">ASR Rule Coverage per Device</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">ASR Rule Coverage per Device</span>
+                        <span class="badge badge-cyan">DeviceEvents</span>
+                        <span class="badge badge-blue">Coverage</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Shows the number of distinct active ASR rules per device, sorted by fewest rules first. Devices with low active rule counts may have incomplete ASR policy deployment and need investigation.</p>
+                </div>
+<pre><code class="language-kql">DeviceEvents
+| where Timestamp > ago(7d)
+| where ActionType startswith "Asr"
+| summarize ActiveRules = dcount(ActionType),
+            RuleList = make_set(ActionType)
+    by DeviceName
+| sort by ActiveRules asc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>List of devices with their active ASR rule count and the specific rules observed. Devices at the top (fewest rules) are the priority for ASR policy review.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Weekly coverage gap analysis. Cross-reference with device groups to identify policy deployment failures or devices that should have additional ASR rules enabled.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 4: EDR Telemetry Reference
+             ============================================================ -->
+        <section class="section">
+            <h2 id="edr-telemetry"><span class="section-number">4</span> EDR Telemetry Reference</h2>
+            <p>Microsoft Defender for Endpoint collects telemetry across multiple data tables in Advanced Hunting. Understanding the purpose, key fields, and common use cases for each table is essential for effective threat hunting and alert investigation.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Table Name</th>
+                            <th>Description</th>
+                            <th>Key Fields</th>
+                            <th>Common Use Cases</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>DeviceProcessEvents</strong></td>
+                            <td>Process creation and termination</td>
+                            <td><code>FileName</code>, <code>ProcessCommandLine</code>, <code>InitiatingProcessFileName</code>, <code>SHA256</code></td>
+                            <td>Suspicious execution, process chains, LOLBins</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DeviceNetworkEvents</strong></td>
+                            <td>Outbound network connections</td>
+                            <td><code>RemoteIP</code>, <code>RemotePort</code>, <code>RemoteUrl</code>, <code>InitiatingProcessFileName</code></td>
+                            <td>C2 detection, data exfiltration, lateral movement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DeviceFileEvents</strong></td>
+                            <td>File system operations</td>
+                            <td><code>FileName</code>, <code>FolderPath</code>, <code>SHA256</code>, <code>ActionType</code>, <code>FileSize</code></td>
+                            <td>Malware drops, config changes, staging</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DeviceRegistryEvents</strong></td>
+                            <td>Registry modifications</td>
+                            <td><code>RegistryKey</code>, <code>RegistryValueName</code>, <code>RegistryValueData</code>, <code>ActionType</code></td>
+                            <td>Persistence, config tampering</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DeviceLogonEvents</strong></td>
+                            <td>Authentication events</td>
+                            <td><code>AccountName</code>, <code>LogonType</code>, <code>RemoteDeviceName</code>, <code>IsLocalAdmin</code></td>
+                            <td>Lateral movement, brute force, anomalous logons</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DeviceImageLoadEvents</strong></td>
+                            <td>DLL/module loading</td>
+                            <td><code>FileName</code>, <code>FolderPath</code>, <code>SHA256</code>, <code>InitiatingProcessFileName</code></td>
+                            <td>DLL sideloading, injection</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DeviceEvents</strong></td>
+                            <td>Miscellaneous security events</td>
+                            <td><code>ActionType</code>, <code>AdditionalFields</code></td>
+                            <td>ASR, exploit guard, tamper protection, AMSI</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DeviceInfo</strong></td>
+                            <td>Device metadata</td>
+                            <td><code>OSPlatform</code>, <code>OSVersion</code>, <code>MachineGroup</code>, <code>PublicIP</code></td>
+                            <td>Asset inventory, compliance</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 5: Baseline Monitoring KQL Queries
+             ============================================================ -->
+        <section class="section">
+            <h2 id="baseline-monitoring"><span class="section-number">5</span> Baseline Monitoring KQL Queries</h2>
+            <p>Baseline monitoring identifies deviations from normal environment behavior. These queries compare recent activity against established baselines to surface anomalous processes, network connections, file operations, and authentication patterns that warrant investigation.</p>
+
+            <!-- KQL: Unusual Process Execution -->
+            <h3 id="kql-pm-unusual-process">Unusual Process Execution (First Seen)</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Unusual Process Execution (First Seen)</span>
+                        <span class="badge badge-cyan">DeviceProcessEvents</span>
+                        <span class="badge badge-amber">Baseline</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Identifies processes seen for the first time in the last day by comparing against a 30-day baseline. New processes that have never been observed before may indicate malware deployment, unauthorized software, or attacker tools.</p>
+                </div>
+<pre><code class="language-kql">let knownProcesses = DeviceProcessEvents
+    | where Timestamp between (ago(30d) .. ago(1d))
+    | distinct FileName;
+DeviceProcessEvents
+| where Timestamp > ago(1d)
+| where FileName !in (knownProcesses)
+| summarize FirstSeen = min(Timestamp),
+            Devices = make_set(DeviceName, 5),
+            DeviceCount = dcount(DeviceName),
+            CommandLines = make_set(ProcessCommandLine, 3)
+    by FileName, InitiatingProcessFileName
+| sort by DeviceCount asc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Processes seen for the first time in the last day. Includes file name, parent process, first seen timestamp, sample devices, device count, and sample command lines.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Daily baseline deviation check. Processes appearing on a single device are the highest priority for investigation, as they may indicate targeted compromise.</p>
+                </div>
+            </div>
+
+            <!-- KQL: Anomalous Outbound Network Connections -->
+            <h3 id="kql-pm-anomalous-network">Anomalous Outbound Network Connections</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Anomalous Outbound Network Connections</span>
+                        <span class="badge badge-cyan">DeviceNetworkEvents</span>
+                        <span class="badge badge-red">Network</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Detects outbound connections to public IP addresses not seen in the prior 30 days. New external connections may indicate C2 communication, data exfiltration, or newly deployed applications reaching out to the internet.</p>
+                </div>
+<pre><code class="language-kql">let baselineIPs = DeviceNetworkEvents
+    | where Timestamp between (ago(30d) .. ago(1d))
+    | where RemoteIPType == "Public"
+    | distinct RemoteIP;
+DeviceNetworkEvents
+| where Timestamp > ago(1d)
+| where RemoteIPType == "Public"
+| where RemoteIP !in (baselineIPs)
+| summarize ConnectionCount = count(),
+            Devices = make_set(DeviceName, 5),
+            Ports = make_set(RemotePort),
+            Processes = make_set(InitiatingProcessFileName)
+    by RemoteIP
+| sort by ConnectionCount desc
+| take 50</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Top 50 new public IP addresses contacted in the last 24 hours. Includes connection count, affected devices, destination ports, and the processes initiating connections.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Daily network anomaly detection. Cross-reference flagged IPs with threat intelligence feeds. IPs contacted by a single device on unusual ports are highest priority.</p>
+                </div>
+            </div>
+
+            <!-- KQL: Suspicious File Creation in Temp Directories -->
+            <h3 id="kql-pm-suspicious-temp">Suspicious File Creation in Temp Directories</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Suspicious File Creation in Temp Directories</span>
+                        <span class="badge badge-cyan">DeviceFileEvents</span>
+                        <span class="badge badge-amber">File Activity</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Detects creation of executable or script files in temporary directories. Malware frequently stages payloads in temp folders before execution. Legitimate software rarely drops executables into these locations.</p>
+                </div>
+<pre><code class="language-kql">DeviceFileEvents
+| where Timestamp > ago(24h)
+| where ActionType == "FileCreated"
+| where FolderPath has_any (@"\Temp\", @"\tmp\", @"\AppData\Local\Temp", @"C:\Windows\Temp")
+| where FileName endswith ".exe" or FileName endswith ".dll"
+    or FileName endswith ".ps1" or FileName endswith ".bat"
+    or FileName endswith ".vbs" or FileName endswith ".hta"
+| project Timestamp, DeviceName, FileName, FolderPath, SHA256,
+         InitiatingProcessFileName, InitiatingProcessCommandLine
+| sort by Timestamp desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>All executable and script file creations in temp directories over the last 24 hours. Includes timestamps, device names, file details, SHA256 hashes, and the process that created the file.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Daily sweep for malware staging. Pay special attention to executables created by browser processes, Office applications, or scripting engines, as these indicate likely payload delivery.</p>
+                </div>
+            </div>
+
+            <!-- KQL: Registry Run Key Modifications -->
+            <h3 id="kql-pm-registry-run">Registry Run Key Modifications</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Registry Run Key Modifications</span>
+                        <span class="badge badge-cyan">DeviceRegistryEvents</span>
+                        <span class="badge badge-purple">Persistence</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Monitors modifications to common persistence-related registry keys including Run, RunOnce, Shell Folders, and Winlogon. These are frequently abused by attackers to maintain persistence across reboots.</p>
+                </div>
+<pre><code class="language-kql">DeviceRegistryEvents
+| where Timestamp > ago(24h)
+| where ActionType == "RegistryValueSet"
+| where RegistryKey has_any (
+    @"CurrentVersion\Run",
+    @"CurrentVersion\RunOnce",
+    @"CurrentVersion\Explorer\Shell Folders",
+    @"CurrentVersion\Winlogon"
+)
+| project Timestamp, DeviceName, RegistryKey, RegistryValueName,
+         RegistryValueData, InitiatingProcessFileName,
+         InitiatingProcessCommandLine, AccountName
+| sort by Timestamp desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>All registry run key modifications in the last 24 hours with the full registry path, value name, value data, and the process and account that made the modification.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Daily persistence monitoring. Correlate with process and file events to build a complete picture of potential persistence mechanisms being established by suspicious actors.</p>
+                </div>
+            </div>
+
+            <!-- KQL: Failed Logon Attempts Spike -->
+            <h3 id="kql-pm-failed-logons">Failed Logon Attempts Spike</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Failed Logon Attempts Spike</span>
+                        <span class="badge badge-cyan">DeviceLogonEvents</span>
+                        <span class="badge badge-red">Authentication</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Detects devices with more than 10 failed logon attempts in a single hour, which may indicate brute force attacks, password spraying, or misconfigured services. Also captures the unique accounts targeted.</p>
+                </div>
+<pre><code class="language-kql">DeviceLogonEvents
+| where Timestamp > ago(24h)
+| where ActionType == "LogonFailed"
+| summarize FailedCount = count(),
+            UniqueAccounts = dcount(AccountName),
+            Accounts = make_set(AccountName, 10)
+    by DeviceName, bin(Timestamp, 1h)
+| where FailedCount > 10
+| sort by FailedCount desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>Devices with more than 10 failed logon attempts per hour. Includes device name, time bucket, failure count, number of unique accounts, and a sample of the targeted account names.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Daily authentication monitoring. High failure counts against multiple unique accounts suggest password spraying. Failures against a single account suggest brute force or lockout issues.</p>
+                </div>
+            </div>
+
+            <!-- KQL: Unsigned DLL Loads in System Processes -->
+            <h3 id="kql-pm-unsigned-dll">Unsigned DLL Loads in System Processes</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Unsigned DLL Loads in System Processes</span>
+                        <span class="badge badge-cyan">DeviceImageLoadEvents</span>
+                        <span class="badge badge-red">DLL Injection</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Identifies DLLs loaded by critical system processes (svchost, lsass, services, explorer) from outside the Windows directory. This pattern is commonly associated with DLL sideloading and process injection attacks.</p>
+                </div>
+<pre><code class="language-kql">DeviceImageLoadEvents
+| where Timestamp > ago(24h)
+| where InitiatingProcessFileName in ("svchost.exe", "lsass.exe", "services.exe", "explorer.exe")
+| where InitiatingProcessFolderPath startswith @"C:\Windows\System32"
+| where not(FolderPath startswith @"C:\Windows")
+| project Timestamp, DeviceName, FileName, FolderPath, SHA256,
+         InitiatingProcessFileName, InitiatingProcessFolderPath
+| sort by Timestamp desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>DLLs loaded from non-Windows paths by system-critical processes. Includes timestamps, device names, DLL file details, SHA256 hashes, and the system process that loaded the DLL.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Daily DLL injection detection. Any results from this query should be treated as high priority and investigated immediately, as legitimate DLL loads into system processes should originate from Windows directories.</p>
+                </div>
+            </div>
+
+            <!-- KQL: PowerShell Encoded Command Execution -->
+            <h3 id="kql-pm-encoded-ps">PowerShell Encoded Command Execution</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">PowerShell Encoded Command Execution</span>
+                        <span class="badge badge-cyan">DeviceProcessEvents</span>
+                        <span class="badge badge-purple">Obfuscation</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Detects PowerShell execution using encoded commands or Base64 conversion. Encoded PowerShell is a common technique used by attackers to bypass command-line logging and evade signature-based detections.</p>
+                </div>
+<pre><code class="language-kql">DeviceProcessEvents
+| where Timestamp > ago(24h)
+| where FileName in ("powershell.exe", "pwsh.exe")
+| where ProcessCommandLine has_any ("-enc", "-EncodedCommand", "-e ", "FromBase64")
+| project Timestamp, DeviceName, ProcessCommandLine, AccountName,
+         InitiatingProcessFileName, InitiatingProcessCommandLine
+| sort by Timestamp desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>All encoded PowerShell executions in the last 24 hours with timestamps, device names, full command lines, user accounts, and parent process details.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Daily obfuscation detection. Decode the Base64 payload for analysis. Legitimate encoded PowerShell (e.g., SCCM, DSC) should be documented in the approved software list.</p>
+                </div>
+            </div>
+
+            <!-- KQL: Tamper Protection Events -->
+            <h3 id="kql-pm-tamper">Tamper Protection Events</h3>
+            <div class="kql-block">
+                <div class="kql-header">
+                    <div class="kql-meta">
+                        <span class="kql-title">Tamper Protection Events</span>
+                        <span class="badge badge-cyan">DeviceEvents</span>
+                        <span class="badge badge-red">Tamper Protection</span>
+                    </div>
+                    <button class="btn-copy" aria-label="Copy KQL query">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy
+                    </button>
+                </div>
+                <div class="kql-description">
+                    <p>Monitors tamper protection events which fire when something attempts to modify or disable Defender security settings. Tamper protection alerts are high-confidence indicators of malicious activity attempting to weaken defenses.</p>
+                </div>
+<pre><code class="language-kql">DeviceEvents
+| where Timestamp > ago(7d)
+| where ActionType == "TamperProtection"
+| project Timestamp, DeviceName,
+         TamperAction = tostring(AdditionalFields.TamperAction),
+         TamperTarget = tostring(AdditionalFields.TamperTarget),
+         InitiatingProcessFileName, AccountName
+| sort by Timestamp desc</code></pre>
+                <div class="kql-output">
+                    <h5>Expected Output</h5>
+                    <p>All tamper protection events over the last 7 days. Includes timestamps, device names, the specific tamper action attempted, the target setting, the process that attempted the modification, and the account used.</p>
+                </div>
+                <div class="kql-when">
+                    <h5>When to Use</h5>
+                    <p>Weekly tamper protection review. Any tamper protection event should be treated as a potential indicator of compromise and escalated for immediate investigation.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 6: Alert Tuning Procedures
+             ============================================================ -->
+        <section class="section">
+            <h2 id="alert-tuning"><span class="section-number">6</span> Alert Tuning Procedures</h2>
+            <p>Alert tuning reduces false positive noise while maintaining detection coverage. A disciplined tuning process ensures that suppression rules are well-documented, regularly reviewed, and do not inadvertently mask real threats.</p>
+
+            <h3 id="tuning-procedure">Tuning Procedure Steps</h3>
+            <ol class="procedure-steps">
+                <li>Identify alert generating excessive false positives (&gt;20% FP rate over 7 days)</li>
+                <li>Analyze FP patterns &mdash; common file, process, path, or user</li>
+                <li>Determine appropriate tuning action (suppression, exclusion, custom detection modification)</li>
+                <li>Document tuning rationale and expected impact</li>
+                <li>Implement tuning in MDE portal (suppression rules, indicators with Allow action)</li>
+                <li>Monitor for 7 days to validate tuning effectiveness</li>
+                <li>Verify true positives are not being suppressed</li>
+            </ol>
+
+            <h3 id="alert-quality-metrics">Alert Quality Metrics</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Description</th>
+                            <th>Target</th>
+                            <th>Formula</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>True Positive Rate</strong></td>
+                            <td>Percentage of alerts that are actual threats</td>
+                            <td><span class="badge badge-green">&gt;80%</span></td>
+                            <td><code>TP / (TP + FP) * 100</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>False Positive Rate</strong></td>
+                            <td>Percentage of alerts that are not threats</td>
+                            <td><span class="badge badge-green">&lt;20%</span></td>
+                            <td><code>FP / (TP + FP) * 100</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>MTTD (Mean Time to Detect)</strong></td>
+                            <td>Average time from threat occurrence to alert</td>
+                            <td><span class="badge badge-amber">&lt;1 hour</span></td>
+                            <td><code>Sum(detection times) / count</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>MTTT (Mean Time to Triage)</strong></td>
+                            <td>Average time from alert to initial assessment</td>
+                            <td><span class="badge badge-amber">&lt;15 min (High)</span></td>
+                            <td><code>Sum(triage times) / count</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 7: False Positive Reduction
+             ============================================================ -->
+        <section class="section">
+            <h2 id="false-positive"><span class="section-number">7</span> False Positive Reduction</h2>
+            <p>Systematic false positive reduction improves analyst efficiency, reduces alert fatigue, and allows the team to focus on genuine threats. This section provides a decision tree for FP classification and a documentation template for suppression rules.</p>
+
+            <!-- FP Decision Tree -->
+            <h3 id="fp-decision-tree">FP Decision Tree</h3>
+
+            <ul class="decision-tree">
+                <li>
+                    <div class="dt-node dt-question">ALERT RECEIVED &mdash; Begin FP Assessment</div>
+                    <ul>
+                        <li>
+                            <div class="dt-node dt-question">Is the activity from a known legitimate application?</div>
+                            <ul>
+                                <li>
+                                    <div class="dt-node dt-yes">YES &mdash; Is it in the approved software list?</div>
+                                    <ul>
+                                        <li>
+                                            <div class="dt-node dt-yes dt-action">YES &mdash; Document as FP, create suppression rule</div>
+                                        </li>
+                                        <li>
+                                            <div class="dt-node dt-no dt-escalate">NO &mdash; Escalate for software approval review</div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="dt-node dt-no">NO &mdash; Is it a known testing/admin activity?</div>
+                                    <ul>
+                                        <li>
+                                            <div class="dt-node dt-yes">YES &mdash; Verify with activity owner</div>
+                                            <ul>
+                                                <li>
+                                                    <div class="dt-node dt-yes dt-action">Confirmed legitimate &mdash; Document as BTP, consider suppression</div>
+                                                </li>
+                                                <li>
+                                                    <div class="dt-node dt-no dt-question">Not confirmed &mdash; Continue investigation</div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <div class="dt-node dt-no dt-escalate">NO &mdash; Continue full investigation</div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- FP Documentation -->
+            <h3 id="fp-documentation">FP Documentation Template</h3>
+
+            <div class="collapsible expanded">
+                <div class="collapsible-header">
+                    <svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span class="collapsible-title">False Positive Documentation Checklist</span>
+                    <span class="collapsible-badge"><span class="badge badge-amber">Required</span></span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="collapsible-body">
+                        <div class="checklist-section" data-checklist-id="fp-documentation">
+                            <div class="checklist-progress">
+                                <div class="checklist-progress-bar">
+                                    <div class="checklist-progress-fill" style="width: 0%"></div>
+                                </div>
+                                <span class="checklist-progress-text">0 / 8</span>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="fp-1">
+                                <label for="fp-1"><strong>ALERT ID:</strong> [MDE Alert ID]</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="fp-2">
+                                <label for="fp-2"><strong>ALERT TITLE:</strong> [Detection rule name]</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="fp-3">
+                                <label for="fp-3"><strong>FP REASON:</strong> [Why this is a false positive]</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="fp-4">
+                                <label for="fp-4"><strong>TRIGGERING ENTITY:</strong> [File/Process/IP that caused the alert]</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="fp-5">
+                                <label for="fp-5"><strong>SUPPRESSION SCOPE:</strong> [Device group / All devices / Specific device]</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="fp-6">
+                                <label for="fp-6"><strong>SUPPRESSION TYPE:</strong> [Alert suppression / File exclusion / Folder exclusion / Process exclusion]</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="fp-7">
+                                <label for="fp-7"><strong>APPROVED BY:</strong> [Senior analyst name]</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="fp-8">
+                                <label for="fp-8"><strong>REVIEW DATE:</strong> [Date to re-evaluate suppression]</label>
+                            </div>
+                            <button class="btn-reset-checklist" data-checklist-id="fp-documentation">
+                                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                                Reset Checklist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout callout-warning">
+                <div class="callout-title">Exclusion Review</div>
+                <p>All suppression rules and exclusions must be reviewed quarterly. Stale exclusions may hide real threats. Maintain an exclusion inventory with justifications and expiry dates.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/kql-highlight.js" defer></script>
+    <script src="js/kql-clipboard.js" defer></script>
+    <script src="js/collapsible.js" defer></script>
+    <script src="js/checklist.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/search.js" defer></script>
+</body>
+</html>

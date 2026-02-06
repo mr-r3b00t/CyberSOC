@@ -1,0 +1,247 @@
+/* ============================================
+   CyberSOC Playbook — Print Styles
+   ============================================ */
+
+@media print {
+    /* Hide interactive/nav elements */
+    .sidebar,
+    .topbar,
+    .sidebar-overlay,
+    .btn-copy,
+    .btn-expand-all,
+    .btn-reset-checklist,
+    .btn-menu,
+    .topbar-search,
+    .search-results,
+    .skip-link,
+    .tab-nav,
+    .quick-links {
+        display: none !important;
+    }
+
+    /* Remove background pattern */
+    body::before {
+        display: none;
+    }
+
+    /* Light theme for print */
+    body {
+        background: white;
+        color: #1a1a2e;
+        font-size: 11pt;
+        line-height: 1.5;
+    }
+
+    /* Full width content */
+    .main-content {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+    }
+
+    /* Headings */
+    h1, h2, h3, h4, h5, h6 {
+        color: #0a0e17;
+        page-break-after: avoid;
+    }
+
+    h1 { font-size: 18pt; }
+    h2 { font-size: 14pt; border-bottom: 1px solid #ccc; }
+    h3 { font-size: 12pt; }
+
+    /* Expand all collapsible sections */
+    .collapsible-content {
+        max-height: none !important;
+        overflow: visible !important;
+        display: block !important;
+    }
+
+    .collapsible-chevron {
+        display: none;
+    }
+
+    .collapsible {
+        border: 1px solid #ddd;
+        background: white;
+    }
+
+    .collapsible-body {
+        border-top: 1px solid #ddd;
+    }
+
+    /* Show all tab panels */
+    .tab-panel {
+        display: block !important;
+        border-top: 1px solid #ddd;
+        padding-top: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .tab-panel::before {
+        content: attr(data-tab-title);
+        display: block;
+        font-weight: 700;
+        font-size: 11pt;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+
+    /* Cards */
+    .card {
+        border: 1px solid #ccc;
+        background: #f9f9f9;
+        box-shadow: none;
+        page-break-inside: avoid;
+    }
+
+    /* Tables */
+    table {
+        border: 1px solid #ccc;
+    }
+
+    th {
+        background: #e9ecef;
+        color: #333;
+    }
+
+    td, th {
+        border: 1px solid #ddd;
+    }
+
+    tbody tr:hover {
+        background: none;
+    }
+
+    .raci-table td.raci-r,
+    .raci-table td.raci-a,
+    .raci-table td.raci-c,
+    .raci-table td.raci-i,
+    .raci-table td.raci-ra {
+        background: #f0f0f0;
+        color: #333;
+    }
+
+    /* KQL blocks */
+    .kql-block {
+        border: 1px solid #ccc;
+        border-left: 3px solid #06b6d4;
+        page-break-inside: avoid;
+    }
+
+    .kql-header {
+        background: #e9ecef;
+    }
+
+    .kql-title {
+        color: #1a1a2e;
+    }
+
+    .kql-block pre {
+        background: #f5f5f5;
+    }
+
+    .kql-block pre code {
+        color: #1a1a2e;
+    }
+
+    /* Reset syntax highlighting for print legibility */
+    .kql-keyword { color: #0369a1; }
+    .kql-operator { color: #7c3aed; }
+    .kql-function { color: #059669; }
+    .kql-string { color: #b45309; }
+    .kql-comment { color: #6b7280; }
+    .kql-table { color: #1a1a2e; }
+    .kql-number { color: #b45309; }
+    .kql-pipe { color: #7c3aed; }
+
+    /* Badges */
+    .badge {
+        border: 1px solid #ccc;
+        background: #f0f0f0;
+        color: #333;
+    }
+
+    /* Callouts */
+    .callout {
+        background: #f9f9f9;
+        border-color: #ccc;
+    }
+
+    .callout-title {
+        color: #333;
+    }
+
+    /* Checklists */
+    .checklist-item input[type="checkbox"] {
+        appearance: auto;
+        -webkit-appearance: auto;
+    }
+
+    .checklist-progress-bar {
+        background: #e5e7eb;
+    }
+
+    .checklist-progress-fill {
+        background: #059669;
+    }
+
+    /* Decision trees */
+    .dt-node {
+        border-color: #ccc;
+        background: white;
+    }
+
+    .decision-tree ul li::before,
+    .decision-tree ul li::after {
+        border-color: #999;
+    }
+
+    /* Page breaks */
+    .section {
+        page-break-inside: avoid;
+    }
+
+    h2 {
+        page-break-before: auto;
+    }
+
+    .kql-block,
+    .checklist-section,
+    .template-block,
+    .table-wrapper {
+        page-break-inside: avoid;
+    }
+
+    /* Links */
+    a {
+        color: #0369a1;
+        text-decoration: underline;
+    }
+
+    a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        color: #6b7280;
+    }
+
+    /* Timeline */
+    .timeline::before {
+        background: #999;
+    }
+
+    .timeline-item::before {
+        border-color: #999;
+        background: white;
+    }
+
+    /* Page header */
+    .page-header {
+        border-bottom: 2px solid #333;
+    }
+
+    .section-number {
+        background: #e9ecef;
+        color: #333;
+    }
+}

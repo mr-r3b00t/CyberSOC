@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident Management — CyberSOC Playbook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/kql.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <!-- Top Bar -->
+    <header class="topbar">
+        <div class="topbar-logo">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="28" height="28" rx="6" stroke="#06b6d4" stroke-width="2"/>
+                <path d="M16 8v16M8 16h16" stroke="#06b6d4" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="16" cy="16" r="4" stroke="#a855f7" stroke-width="2"/>
+                <circle cx="16" cy="16" r="8" stroke="#06b6d4" stroke-width="1" opacity="0.4"/>
+            </svg>
+            <span>Cyber<span class="logo-accent">SOC</span> Playbook</span>
+        </div>
+
+        <div class="topbar-search">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Search playbooks... (Ctrl+K)" aria-label="Search playbooks">
+            <div class="search-results"></div>
+        </div>
+
+        <div class="topbar-actions">
+            <button class="btn-topbar btn-print" aria-label="Print this page" title="Print">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            </button>
+            <button class="btn-topbar btn-menu" aria-label="Toggle menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" aria-label="Main navigation">
+        <div class="sidebar-section-title">Operations Center</div>
+        <ul class="sidebar-nav">
+            <li>
+                <a href="index.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    <span class="nav-label">Dashboard</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-section-title">Playbooks</div>
+        <ul class="sidebar-nav">
+            <li>
+                <a href="threat-intelligence.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+                    <span class="nav-label">Threat Intelligence</span>
+                </a>
+            </li>
+            <li>
+                <a href="protective-monitoring.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span class="nav-label">Protective Monitoring</span>
+                </a>
+            </li>
+            <li>
+                <a href="incident-management.html" class="active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+                    <span class="nav-label">Incident Management</span>
+                </a>
+            </li>
+            <li>
+                <a href="alert-triage.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                    <span class="nav-label">Alert Triage</span>
+                </a>
+            </li>
+            <li>
+                <a href="incident-response.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <span class="nav-label">Incident Response</span>
+                </a>
+            </li>
+            <li>
+                <a href="vulnerability-management.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                    <span class="nav-label">Vulnerability Management</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-toc"><div class="sidebar-section-title">On This Page</div><ul class="sidebar-toc-list"></ul></div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main">
+        <div class="page-header">
+            <h1>
+                <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+                Incident Management
+            </h1>
+            <p class="page-subtitle">Incident classification, lifecycle management, communication templates, escalation matrices, and RACI framework. Aligned with ITIL and NIST frameworks.</p>
+            <div class="page-meta">
+                <span>
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="2" y1="6" x2="14" y2="6"/><line x1="6" y1="2" x2="6" y2="6"/></svg>
+                    ITIL/NIST Aligned
+                </span>
+                <span>
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 14s6-3.5 6-8V3.5L8 1.5 2 3.5V6c0 4.5 6 8 6 8z"/></svg>
+                    5 Templates
+                </span>
+                <span>
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><polyline points="8 4 8 8 11 10"/></svg>
+                    1 RACI Matrix
+                </span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             Section 1: Incident Classification
+             ============================================================ -->
+        <section class="section">
+            <h2 id="classification"><span class="section-number">1</span> Incident Classification</h2>
+            <p>Incidents are classified using a priority matrix based on impact and urgency. This classification drives response SLAs, update cadences, and escalation requirements. All SOC analysts must apply this matrix consistently at the point of incident declaration.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Priority</th>
+                            <th>Impact</th>
+                            <th>Urgency</th>
+                            <th>Response SLA</th>
+                            <th>Update Frequency</th>
+                            <th>Examples</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row-critical">
+                            <td><span class="badge badge-red">P1 - Critical</span></td>
+                            <td>Organization-wide</td>
+                            <td>Immediate</td>
+                            <td><strong>15 min</strong></td>
+                            <td>Every 30 min</td>
+                            <td>Active ransomware, confirmed data breach, nation-state compromise</td>
+                        </tr>
+                        <tr class="row-high">
+                            <td><span class="badge badge-amber">P2 - High</span></td>
+                            <td>Multiple departments</td>
+                            <td>High</td>
+                            <td><strong>1 hour</strong></td>
+                            <td>Every 2 hours</td>
+                            <td>Lateral movement detected, C2 confirmed, privilege escalation</td>
+                        </tr>
+                        <tr class="row-medium">
+                            <td><span class="badge badge-blue">P3 - Medium</span></td>
+                            <td>Single department</td>
+                            <td>Medium</td>
+                            <td><strong>4 hours</strong></td>
+                            <td>Every 8 hours</td>
+                            <td>Malware on single endpoint, phishing with credential harvest, policy violation</td>
+                        </tr>
+                        <tr class="row-low">
+                            <td><span class="badge badge-muted">P4 - Low</span></td>
+                            <td>Single user</td>
+                            <td>Low</td>
+                            <td><strong>24 hours</strong></td>
+                            <td>Daily</td>
+                            <td>Adware, PUP detection, low-confidence alerts, informational findings</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 id="category-taxonomy">Category Taxonomy</h3>
+            <p>Each incident must be assigned a category and sub-category at the point of declaration. This taxonomy supports reporting, trend analysis, and playbook routing.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Sub-Categories</th>
+                            <th>Typical Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Malware</strong></td>
+                            <td>Ransomware, Trojan, Worm, Dropper, RAT, Cryptominer</td>
+                            <td><span class="badge badge-red">P1</span> &ndash; <span class="badge badge-blue">P3</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Unauthorized Access</strong></td>
+                            <td>Credential Theft, Privilege Escalation, Account Compromise</td>
+                            <td><span class="badge badge-red">P1</span> &ndash; <span class="badge badge-amber">P2</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data Breach</strong></td>
+                            <td>Exfiltration, Exposure, Loss, Unauthorized Disclosure</td>
+                            <td><span class="badge badge-red">P1</span> &ndash; <span class="badge badge-amber">P2</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Denial of Service</strong></td>
+                            <td>DDoS, Resource Exhaustion, Service Disruption</td>
+                            <td><span class="badge badge-amber">P2</span> &ndash; <span class="badge badge-blue">P3</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Policy Violation</strong></td>
+                            <td>Acceptable Use, Data Handling, Shadow IT</td>
+                            <td><span class="badge badge-blue">P3</span> &ndash; <span class="badge badge-muted">P4</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Insider Threat</strong></td>
+                            <td>Malicious Insider, Negligent Insider, Compromised Insider</td>
+                            <td><span class="badge badge-red">P1</span> &ndash; <span class="badge badge-blue">P3</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Supply Chain</strong></td>
+                            <td>Compromised Vendor, Malicious Update, Third-Party Breach</td>
+                            <td><span class="badge badge-red">P1</span> &ndash; <span class="badge badge-amber">P2</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 2: Incident Lifecycle
+             ============================================================ -->
+        <section class="section">
+            <h2 id="lifecycle"><span class="section-number">2</span> Incident Lifecycle</h2>
+            <p>The incident lifecycle follows a structured nine-phase model aligned with NIST SP 800-61 and ITIL incident management best practices. Each phase has defined entry criteria, activities, and exit criteria.</p>
+
+            <div class="timeline">
+                <div class="timeline-item completed">
+                    <div class="timeline-title">1. Detection</div>
+                    <div class="timeline-description">Alert or event triggers investigation. Sources include MDE alerts, SIEM correlation rules, threat hunting findings, user reports, and external notifications.</div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="timeline-title">2. Triage</div>
+                    <div class="timeline-description">Initial assessment and classification. Analyst validates the alert, determines true/false positive, assigns initial priority, and decides whether to declare an incident.</div>
+                </div>
+                <div class="timeline-item active">
+                    <div class="timeline-title">3. Declaration</div>
+                    <div class="timeline-description">Formal incident declaration. Incident ticket created, priority assigned, incident commander designated, and initial stakeholder notifications sent.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">4. Investigation</div>
+                    <div class="timeline-description">Scoping and evidence collection. Determine the full extent of compromise, identify all affected assets, collect forensic evidence, and establish the attack timeline.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">5. Containment</div>
+                    <div class="timeline-description">Stop the spread and limit damage. Isolate affected systems, block malicious indicators, disable compromised accounts, and implement network segmentation as needed.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">6. Eradication</div>
+                    <div class="timeline-description">Remove threat from environment. Eliminate malware, close attack vectors, patch exploited vulnerabilities, and verify complete removal of adversary presence.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">7. Recovery</div>
+                    <div class="timeline-description">Restore normal operations. Rebuild or restore affected systems, re-enable accounts with new credentials, validate system integrity, and monitor for recurrence.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">8. Closure</div>
+                    <div class="timeline-description">Administrative closure. Complete all documentation, finalize the incident ticket, confirm all stakeholders are notified of resolution, and archive evidence.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">9. Post-Incident Review</div>
+                    <div class="timeline-description">Lessons learned. Conduct a structured review meeting, identify improvements, update playbooks and detection rules, and track remediation actions to completion.</div>
+                </div>
+            </div>
+
+            <div class="collapsible">
+                <div class="collapsible-header">
+                    <svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span class="collapsible-title">Phase Transition Criteria</span>
+                    <span class="collapsible-badge"><span class="badge badge-cyan">Reference</span></span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="collapsible-body">
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>From &rarr; To</th>
+                                        <th>Trigger Criteria</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Detection &rarr; Triage</strong></td>
+                                        <td>Alert assigned to analyst</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Triage &rarr; Declaration</strong></td>
+                                        <td>Confirmed true positive, meets incident threshold</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Declaration &rarr; Investigation</strong></td>
+                                        <td>Incident commander assigned, war room established</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Investigation &rarr; Containment</strong></td>
+                                        <td>Threat scope identified, containment plan approved</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Containment &rarr; Eradication</strong></td>
+                                        <td>Spread halted, all affected assets identified</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Eradication &rarr; Recovery</strong></td>
+                                        <td>All malicious artifacts removed, root cause addressed</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Recovery &rarr; Closure</strong></td>
+                                        <td>All systems restored, no recurrence in 24-48h monitoring</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Closure &rarr; PIR</strong></td>
+                                        <td>Incident closed, PIR scheduled within 5 business days</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 3: Communication Templates
+             ============================================================ -->
+        <section class="section">
+            <h2 id="communication"><span class="section-number">3</span> Communication Templates</h2>
+            <p>Standardized communication templates ensure consistent, timely, and professional notifications throughout the incident lifecycle. Use these templates as starting points and customize based on the specific incident context.</p>
+
+            <!-- Template 1: Initial Incident Notification -->
+            <h3 id="template-initial">Initial Incident Notification</h3>
+            <div class="template-block">
+                <div class="template-header">
+                    <span class="template-title">Initial Incident Notification</span>
+                    <span class="badge badge-red">Priority Template</span>
+                </div>
+                <div class="template-body">
+                    <div class="template-field">
+                        <div class="template-field-label">INCIDENT ID</div>
+                        <div class="template-field-value">[INC-YYYY-NNNN]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">DATE/TIME DETECTED</div>
+                        <div class="template-field-value">[UTC timestamp]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">CLASSIFICATION</div>
+                        <div class="template-field-value">[P1/P2/P3/P4]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">CATEGORY</div>
+                        <div class="template-field-value">[Malware/Unauthorized Access/etc.]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">AFFECTED SYSTEMS</div>
+                        <div class="template-field-value">[List of device names/count]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">AFFECTED USERS</div>
+                        <div class="template-field-value">[List of usernames/count]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">INITIAL ASSESSMENT</div>
+                        <div class="template-field-value">[Brief description of what was observed]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">IMMEDIATE ACTIONS TAKEN</div>
+                        <div class="template-field-value">[Steps already performed]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ASSIGNED TO</div>
+                        <div class="template-field-value">[Lead analyst name]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">NEXT UPDATE</div>
+                        <div class="template-field-value">[Expected time of next update]</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Template 2: Management Brief -->
+            <h3 id="template-management">Management Brief (CISO/CTO)</h3>
+            <div class="template-block">
+                <div class="template-header">
+                    <span class="template-title">Management Brief (CISO/CTO)</span>
+                    <span class="badge badge-amber">Executive Template</span>
+                </div>
+                <div class="template-body">
+                    <div class="template-field">
+                        <div class="template-field-label">INCIDENT</div>
+                        <div class="template-field-value">[ID] &mdash; [One-line summary]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">PRIORITY</div>
+                        <div class="template-field-value">[P-level and justification]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">BUSINESS IMPACT</div>
+                        <div class="template-field-value">[Plain language impact statement]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">CURRENT STATUS</div>
+                        <div class="template-field-value">[Phase: Investigation/Containment/etc.]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">TIMELINE</div>
+                        <div class="template-field-value">[Key timestamps]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ACTIONS COMPLETED</div>
+                        <div class="template-field-value">[Bulleted list]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ACTIONS PENDING</div>
+                        <div class="template-field-value">[Bulleted list]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">RESOURCE NEEDS</div>
+                        <div class="template-field-value">[Additional support required]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ESTIMATED RESOLUTION</div>
+                        <div class="template-field-value">[Time estimate or "TBD"]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">NEXT UPDATE</div>
+                        <div class="template-field-value">[Scheduled time]</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Template 3: Stakeholder Update -->
+            <h3 id="template-stakeholder">Stakeholder Update</h3>
+            <div class="template-block">
+                <div class="template-header">
+                    <span class="template-title">Stakeholder Update</span>
+                    <span class="badge badge-blue">Status Update</span>
+                </div>
+                <div class="template-body">
+                    <div class="template-field">
+                        <div class="template-field-label">INCIDENT</div>
+                        <div class="template-field-value">[ID] &mdash; Update #[N]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">TIME</div>
+                        <div class="template-field-value">[Current UTC timestamp]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">STATUS</div>
+                        <div class="template-field-value">[Current phase]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">SINCE LAST UPDATE</div>
+                        <div class="template-field-value">[Actions completed]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">CURRENT ACTIONS</div>
+                        <div class="template-field-value">[What's being done now]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">BLOCKERS</div>
+                        <div class="template-field-value">[Any issues preventing progress]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">NEXT STEPS</div>
+                        <div class="template-field-value">[Planned actions]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">NEXT UPDATE</div>
+                        <div class="template-field-value">[Scheduled time]</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Template 4: External/Regulatory Notification -->
+            <h3 id="template-external">External/Regulatory Notification</h3>
+            <div class="template-block">
+                <div class="template-header">
+                    <span class="template-title">External/Regulatory Notification</span>
+                    <span class="badge badge-red">Legal/Compliance</span>
+                </div>
+                <div class="template-body">
+                    <div class="template-field">
+                        <div class="template-field-label">ORGANIZATION</div>
+                        <div class="template-field-value">[Company name]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">INCIDENT REFERENCE</div>
+                        <div class="template-field-value">[ID]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">DATE OF DISCOVERY</div>
+                        <div class="template-field-value">[Date]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">NATURE OF INCIDENT</div>
+                        <div class="template-field-value">[Type and scope]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">DATA AFFECTED</div>
+                        <div class="template-field-value">[Types of data potentially impacted]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">INDIVIDUALS AFFECTED</div>
+                        <div class="template-field-value">[Count or estimate]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">CONTAINMENT STATUS</div>
+                        <div class="template-field-value">[Current status]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">REMEDIATION STEPS</div>
+                        <div class="template-field-value">[Actions taken and planned]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">CONTACT</div>
+                        <div class="template-field-value">[DPO or legal contact information]</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Template 5: Incident Closure Notice -->
+            <h3 id="template-closure">Incident Closure Notice</h3>
+            <div class="template-block">
+                <div class="template-header">
+                    <span class="template-title">Incident Closure Notice</span>
+                    <span class="badge badge-green">Closure</span>
+                </div>
+                <div class="template-body">
+                    <div class="template-field">
+                        <div class="template-field-label">INCIDENT</div>
+                        <div class="template-field-value">[ID] &mdash; RESOLVED</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">TOTAL DURATION</div>
+                        <div class="template-field-value">[Time from detection to closure]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ROOT CAUSE</div>
+                        <div class="template-field-value">[Brief root cause summary]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">IMPACT SUMMARY</div>
+                        <div class="template-field-value">[Final scope: devices, users, data]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">RESOLUTION</div>
+                        <div class="template-field-value">[How the incident was resolved]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">PREVENTIVE MEASURES</div>
+                        <div class="template-field-value">[Controls implemented to prevent recurrence]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">PIR SCHEDULED</div>
+                        <div class="template-field-value">[Date and time for post-incident review]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">LESSONS LEARNED</div>
+                        <div class="template-field-value">[Key preliminary takeaways]</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 4: Escalation Matrix
+             ============================================================ -->
+        <section class="section">
+            <h2 id="escalation"><span class="section-number">4</span> Escalation Matrix</h2>
+            <p>The escalation matrix defines when, to whom, and how incidents must be escalated. Timely and accurate escalation is critical for minimizing business impact and ensuring appropriate leadership visibility.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Condition</th>
+                            <th>Escalate To</th>
+                            <th>Method</th>
+                            <th>Timeframe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row-critical">
+                            <td>P1 incident declared</td>
+                            <td><strong>SOC Manager + Incident Commander</strong></td>
+                            <td>Phone + Teams</td>
+                            <td><span class="badge badge-red">Immediate</span></td>
+                        </tr>
+                        <tr class="row-critical">
+                            <td>P1 &gt; 30 min unresolved</td>
+                            <td><strong>CISO</strong></td>
+                            <td>Phone</td>
+                            <td><span class="badge badge-red">Within 30 min</span></td>
+                        </tr>
+                        <tr class="row-critical">
+                            <td>P1 &gt; 2 hours unresolved</td>
+                            <td><strong>CTO + Legal</strong></td>
+                            <td>Phone + Email</td>
+                            <td><span class="badge badge-red">Within 2 hours</span></td>
+                        </tr>
+                        <tr class="row-critical">
+                            <td>Data breach suspected</td>
+                            <td><strong>DPO + Legal</strong></td>
+                            <td>Phone + Email</td>
+                            <td><span class="badge badge-red">Within 1 hour</span></td>
+                        </tr>
+                        <tr class="row-critical">
+                            <td>Nation-state indicators</td>
+                            <td><strong>CISO + External IR</strong></td>
+                            <td>Phone</td>
+                            <td><span class="badge badge-red">Within 15 min</span></td>
+                        </tr>
+                        <tr class="row-high">
+                            <td>P2 incident declared</td>
+                            <td><strong>SOC Manager</strong></td>
+                            <td>Teams + Ticket</td>
+                            <td><span class="badge badge-amber">Within 15 min</span></td>
+                        </tr>
+                        <tr class="row-high">
+                            <td>P2 &gt; 4 hours unresolved</td>
+                            <td><strong>SOC Manager for re-assessment</strong></td>
+                            <td>Phone</td>
+                            <td><span class="badge badge-amber">Within 4 hours</span></td>
+                        </tr>
+                        <tr class="row-high">
+                            <td>Regulatory notification required</td>
+                            <td><strong>Legal + Compliance</strong></td>
+                            <td>Email + Phone</td>
+                            <td><span class="badge badge-amber">Within 1 hour</span></td>
+                        </tr>
+                        <tr class="row-medium">
+                            <td>P3 incident declared</td>
+                            <td><strong>Shift Lead</strong></td>
+                            <td>Ticket</td>
+                            <td><span class="badge badge-blue">Within 1 hour</span></td>
+                        </tr>
+                        <tr class="row-medium">
+                            <td>P3 &gt; 24 hours unresolved</td>
+                            <td><strong>SOC Manager</strong></td>
+                            <td>Ticket</td>
+                            <td><span class="badge badge-blue">Within 24 hours</span></td>
+                        </tr>
+                        <tr class="row-low">
+                            <td>P4 incident declared</td>
+                            <td><strong>Assignment queue</strong></td>
+                            <td>Ticket</td>
+                            <td><span class="badge badge-muted">Next business day</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-info">
+                <div class="callout-title">Escalation Tip</div>
+                <p>When in doubt, escalate. It is always better to escalate unnecessarily than to miss a critical escalation window. Document all escalation attempts and outcomes.</p>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 5: RACI Matrix
+             ============================================================ -->
+        <section class="section">
+            <h2 id="raci"><span class="section-number">5</span> RACI Matrix</h2>
+            <p>The RACI matrix defines roles and responsibilities across the incident management lifecycle. Every activity must have exactly one Accountable party, with Responsible, Consulted, and Informed roles clearly assigned.</p>
+
+            <div class="table-wrapper">
+                <table class="raci-table">
+                    <thead>
+                        <tr>
+                            <th>Activity</th>
+                            <th>SOC Analyst</th>
+                            <th>SOC Manager</th>
+                            <th>Incident Commander</th>
+                            <th>CISO</th>
+                            <th>IT Operations</th>
+                            <th>Legal</th>
+                            <th>HR</th>
+                            <th>Communications</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Alert Triage</strong></td>
+                            <td class="raci-r">R</td>
+                            <td class="raci-i">I</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Incident Declaration</strong></td>
+                            <td class="raci-c">C</td>
+                            <td class="raci-ra">R/A</td>
+                            <td class="raci-i">I</td>
+                            <td class="raci-i">I</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Containment Actions</strong></td>
+                            <td class="raci-r">R</td>
+                            <td class="raci-a">A</td>
+                            <td class="raci-c">C</td>
+                            <td class="raci-i">I</td>
+                            <td class="raci-c">C</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Evidence Preservation</strong></td>
+                            <td class="raci-r">R</td>
+                            <td class="raci-a">A</td>
+                            <td class="raci-c">C</td>
+                            <td></td>
+                            <td></td>
+                            <td class="raci-i">I</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Investigation Lead</strong></td>
+                            <td class="raci-r">R</td>
+                            <td class="raci-c">C</td>
+                            <td class="raci-a">A</td>
+                            <td class="raci-i">I</td>
+                            <td class="raci-c">C</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Executive Communication</strong></td>
+                            <td></td>
+                            <td class="raci-c">C</td>
+                            <td class="raci-r">R</td>
+                            <td class="raci-a">A</td>
+                            <td></td>
+                            <td class="raci-i">I</td>
+                            <td></td>
+                            <td class="raci-c">C</td>
+                        </tr>
+                        <tr>
+                            <td><strong>External/Legal Notification</strong></td>
+                            <td></td>
+                            <td class="raci-i">I</td>
+                            <td class="raci-c">C</td>
+                            <td class="raci-a">A</td>
+                            <td></td>
+                            <td class="raci-r">R</td>
+                            <td></td>
+                            <td class="raci-c">C</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Recovery Actions</strong></td>
+                            <td class="raci-c">C</td>
+                            <td class="raci-a">A</td>
+                            <td class="raci-c">C</td>
+                            <td class="raci-i">I</td>
+                            <td class="raci-r">R</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Post-Incident Review</strong></td>
+                            <td class="raci-r">R</td>
+                            <td class="raci-a">A</td>
+                            <td class="raci-c">C</td>
+                            <td class="raci-i">I</td>
+                            <td class="raci-c">C</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lessons Learned Implementation</strong></td>
+                            <td class="raci-c">C</td>
+                            <td class="raci-r">R</td>
+                            <td class="raci-a">A</td>
+                            <td class="raci-i">I</td>
+                            <td class="raci-c">C</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-info">
+                <div class="callout-title">RACI Legend</div>
+                <p><strong>R = Responsible</strong> (does the work) | <strong>A = Accountable</strong> (owns the outcome) | <strong>C = Consulted</strong> (provides input) | <strong>I = Informed</strong> (kept in the loop)</p>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 6: Post-Incident Review
+             ============================================================ -->
+        <section class="section">
+            <h2 id="post-incident"><span class="section-number">6</span> Post-Incident Review</h2>
+            <p>Post-Incident Reviews (PIRs) are mandatory for all P1 and P2 incidents and recommended for P3 incidents with noteworthy findings. The PIR process is blameless and focused on systemic improvement.</p>
+
+            <h3 id="pir-agenda">PIR Meeting Agenda</h3>
+            <ol class="procedure-steps">
+                <li>Review incident timeline (present facts, not blame)</li>
+                <li>Identify what went well (effective detections, fast response, good communication)</li>
+                <li>Identify what needs improvement (gaps, delays, tool issues)</li>
+                <li>Perform root cause analysis using 5-Whys method</li>
+                <li>Define action items with owners and deadlines</li>
+                <li>Discuss detection improvements and new KQL rules needed</li>
+                <li>Review and update playbooks based on findings</li>
+                <li>Schedule follow-up meeting to track action items</li>
+            </ol>
+
+            <h3 id="five-whys">5-Whys Template</h3>
+            <div class="template-block">
+                <div class="template-header">
+                    <span class="template-title">5-Whys Root Cause Analysis</span>
+                    <span class="badge badge-purple">RCA Template</span>
+                </div>
+                <div class="template-body">
+                    <div class="template-field">
+                        <div class="template-field-label">INCIDENT</div>
+                        <div class="template-field-value">[ID]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">PROBLEM STATEMENT</div>
+                        <div class="template-field-value">[What happened]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">WHY 1</div>
+                        <div class="template-field-value">[First level cause]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">WHY 2</div>
+                        <div class="template-field-value">[Why did WHY 1 happen?]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">WHY 3</div>
+                        <div class="template-field-value">[Why did WHY 2 happen?]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">WHY 4</div>
+                        <div class="template-field-value">[Why did WHY 3 happen?]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">WHY 5</div>
+                        <div class="template-field-value">[Root cause]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ROOT CAUSE CATEGORY</div>
+                        <div class="template-field-value">[People / Process / Technology]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">CORRECTIVE ACTION</div>
+                        <div class="template-field-value">[What will prevent recurrence]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">ACTION OWNER</div>
+                        <div class="template-field-value">[Name]</div>
+                    </div>
+                    <div class="template-field">
+                        <div class="template-field-label">TARGET DATE</div>
+                        <div class="template-field-value">[Date]</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 id="pir-metrics">Metrics</h3>
+            <p>Track the following metrics for every incident to identify trends, measure team performance, and drive continuous improvement.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Description</th>
+                            <th>Target</th>
+                            <th>How to Calculate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>MTTD</strong> (Mean Time to Detect)</td>
+                            <td>Time from initial compromise to first detection</td>
+                            <td><span class="badge badge-red">&lt; 1 hour for P1</span></td>
+                            <td>Alert timestamp &minus; estimated compromise time</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MTTC</strong> (Mean Time to Contain)</td>
+                            <td>Time from detection to successful containment</td>
+                            <td><span class="badge badge-amber">&lt; 4 hours for P1</span></td>
+                            <td>Containment timestamp &minus; detection timestamp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MTTR</strong> (Mean Time to Resolve)</td>
+                            <td>Time from detection to full resolution</td>
+                            <td><span class="badge badge-blue">&lt; 24 hours for P1</span></td>
+                            <td>Closure timestamp &minus; detection timestamp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Blast Radius</strong></td>
+                            <td>Number of affected devices and users</td>
+                            <td><span class="badge badge-cyan">Minimize</span></td>
+                            <td>Count of unique affected entities</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data Impact</strong></td>
+                            <td>Volume/type of data potentially compromised</td>
+                            <td><span class="badge badge-green">None</span></td>
+                            <td>Assessment of accessed/exfiltrated data</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Escalation Accuracy</strong></td>
+                            <td>Were escalations timely and appropriate</td>
+                            <td><span class="badge badge-purple">100%</span></td>
+                            <td>Audit of escalation decisions vs policy</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 7: SLA Tracking
+             ============================================================ -->
+        <section class="section">
+            <h2 id="sla-tracking"><span class="section-number">7</span> SLA Tracking</h2>
+            <p>Service Level Agreements define the expected timeframes for each phase of incident handling. SLA compliance is tracked per incident and reported monthly to SOC leadership.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Priority</th>
+                            <th>Initial Response</th>
+                            <th>Containment</th>
+                            <th>Resolution</th>
+                            <th>Update Cadence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row-critical">
+                            <td><span class="badge badge-red">P1 - Critical</span></td>
+                            <td><strong>15 minutes</strong></td>
+                            <td><strong>4 hours</strong></td>
+                            <td><strong>24 hours</strong></td>
+                            <td>Every 30 minutes</td>
+                        </tr>
+                        <tr class="row-high">
+                            <td><span class="badge badge-amber">P2 - High</span></td>
+                            <td><strong>1 hour</strong></td>
+                            <td><strong>8 hours</strong></td>
+                            <td><strong>48 hours</strong></td>
+                            <td>Every 2 hours</td>
+                        </tr>
+                        <tr class="row-medium">
+                            <td><span class="badge badge-blue">P3 - Medium</span></td>
+                            <td><strong>4 hours</strong></td>
+                            <td><strong>24 hours</strong></td>
+                            <td><strong>5 business days</strong></td>
+                            <td>Every 8 hours</td>
+                        </tr>
+                        <tr class="row-low">
+                            <td><span class="badge badge-muted">P4 - Low</span></td>
+                            <td><strong>24 hours</strong></td>
+                            <td><strong>72 hours</strong></td>
+                            <td><strong>10 business days</strong></td>
+                            <td>Daily</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-info">
+                <div class="callout-title">SLA Clock Rules</div>
+                <p>The SLA clock starts when the incident is declared. Clock pauses when: (1) Waiting on third-party vendor response (documented), (2) Approved management hold, (3) Awaiting user availability for evidence collection. Clock does NOT pause for: shift changes, weekends/holidays (P1/P2), or internal resource constraints.</p>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 8: Ticketing Integration
+             ============================================================ -->
+        <section class="section">
+            <h2 id="ticketing"><span class="section-number">8</span> Ticketing Integration</h2>
+            <p>All incidents must be tracked in the ticketing system with proper field mapping from Microsoft Defender for Endpoint. Consistent ticket creation enables accurate reporting, SLA tracking, and audit compliance.</p>
+
+            <h3 id="ticket-fields">Required Ticket Fields</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>MDE Mapping</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Incident ID</strong></td>
+                            <td><code>AlertId</code> / <code>IncidentId</code></td>
+                            <td>Auto-generated or mapped</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Title</strong></td>
+                            <td><code>Alert Title</code></td>
+                            <td>May be customized during triage</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Priority</strong></td>
+                            <td><code>Severity</code> (High/Medium/Low/Info)</td>
+                            <td>Map to P1-P4</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Category</strong></td>
+                            <td><code>Category</code> field</td>
+                            <td>Use org taxonomy</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Affected Device(s)</strong></td>
+                            <td><code>DeviceName</code></td>
+                            <td>From AlertEvidence</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Affected User(s)</strong></td>
+                            <td><code>AccountName</code></td>
+                            <td>From AlertEvidence</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Description</strong></td>
+                            <td>Alert description + analyst notes</td>
+                            <td>Combine MDE context with analysis</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Status</strong></td>
+                            <td><code>Investigation status</code></td>
+                            <td>Sync with MDE investigation status</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Assigned To</strong></td>
+                            <td>Analyst name</td>
+                            <td>Based on shift/skill matrix</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MDE Incident URL</strong></td>
+                            <td>Portal deep link</td>
+                            <td>For quick reference</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 id="ticket-workflow">Ticket Workflow</h3>
+            <div class="collapsible expanded">
+                <div class="collapsible-header">
+                    <svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <span class="collapsible-title">Ticket Workflow Checklist</span>
+                    <span class="collapsible-badge"><span class="badge badge-amber">Required</span></span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="collapsible-body">
+                        <div class="checklist-section" data-checklist-id="ticket-workflow">
+                            <div class="checklist-progress">
+                                <div class="checklist-progress-bar">
+                                    <div class="checklist-progress-fill" style="width: 0%"></div>
+                                </div>
+                                <span class="checklist-progress-text">0 / 9</span>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="tw-1">
+                                <label for="tw-1">Create ticket immediately upon incident declaration</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="tw-2">
+                                <label for="tw-2">Populate all required fields from MDE alert data</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="tw-3">
+                                <label for="tw-3">Link related alerts to the same ticket</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="tw-4">
+                                <label for="tw-4">Update ticket status at each phase transition</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="tw-5">
+                                <label for="tw-5">Log all communication in ticket work notes</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="tw-6">
+                                <label for="tw-6">Attach evidence artifacts or reference their storage location</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="tw-7">
+                                <label for="tw-7">Update priority if scope changes during investigation</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="tw-8">
+                                <label for="tw-8">Close ticket only after recovery validation complete</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="tw-9">
+                                <label for="tw-9">Include PIR reference in closure notes</label>
+                            </div>
+                            <button class="btn-reset-checklist" data-checklist-id="ticket-workflow">
+                                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                                Reset Checklist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/kql-highlight.js" defer></script>
+    <script src="js/kql-clipboard.js" defer></script>
+    <script src="js/collapsible.js" defer></script>
+    <script src="js/checklist.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/search.js" defer></script>
+</body>
+</html>
